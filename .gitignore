@@ -36,3 +36,4 @@ Thumbs.db
 # Large media files (host on CDN/Railway volume instead)
 public/audio/
 public/covers/
+tsconfig.tsbuildinfo
