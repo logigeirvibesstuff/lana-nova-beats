@@ -19,6 +19,7 @@ export interface Beat {
   moods: string[];
   coverImage: string;
   previewUrl: string;
+  vocalsUrl?: string;
   defaultPrice: number;
   tags: string[];
   createdAt: string;

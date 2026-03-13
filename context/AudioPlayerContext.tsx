@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useRef, useState, useEffect } from "react";
+import React, { createContext, useContext, useRef, useState } from "react";
 import type { Beat } from "@/types/beat";
 import { beats as allBeats } from "@/data/beats";
 
@@ -10,7 +10,9 @@ interface AudioPlayerContextValue {
   isPlaying: boolean;
   currentTime: number;
   duration: number;
+  withVocals: boolean;
   togglePlay: (beat: Beat) => void;
+  toggleVocals: (beat: Beat) => void;
   seek: (time: number) => void;
   playNext: () => void;
   playPrev: () => void;
@@ -25,6 +27,7 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [withVocals, setWithVocals] = useState(false);
 
   const currentBeat = allBeats.find((b) => b.id === currentBeatId) ?? null;
 
@@ -42,10 +45,11 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     return audioRef.current;
   };
 
-  const playBeat = (beat: Beat) => {
+  const playBeat = (beat: Beat, vocals = false) => {
     const audio = ensureAudio();
-    audio.src = beat.previewUrl;
+    audio.src = vocals && beat.vocalsUrl ? beat.vocalsUrl : beat.previewUrl;
     setCurrentBeatId(beat.id);
+    setWithVocals(vocals);
     setCurrentTime(0);
     setDuration(0);
     audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
@@ -66,7 +70,25 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
       return;
     }
 
-    playBeat(beat);
+    playBeat(beat, false);
+  };
+
+  const toggleVocals = (beat: Beat) => {
+    if (!beat.vocalsUrl) return;
+    const newVocals = !withVocals;
+    const audio = ensureAudio();
+    const wasPlaying = currentBeatId === beat.id && isPlaying;
+    const savedTime = audio.currentTime;
+
+    audio.src = newVocals ? beat.vocalsUrl : beat.previewUrl;
+    setWithVocals(newVocals);
+    setCurrentBeatId(beat.id);
+
+    if (wasPlaying) {
+      audio.load();
+      audio.currentTime = savedTime;
+      audio.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
   };
 
   const seek = (time: number) => {
@@ -81,14 +103,14 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     if (!currentBeatId) return;
     const idx = allBeats.findIndex((b) => b.id === currentBeatId);
     const next = allBeats[(idx + 1) % allBeats.length];
-    if (next) playBeat(next);
+    if (next) playBeat(next, false);
   };
 
   const playPrev = () => {
     if (!currentBeatId) return;
     const idx = allBeats.findIndex((b) => b.id === currentBeatId);
     const prev = allBeats[(idx - 1 + allBeats.length) % allBeats.length];
-    if (prev) playBeat(prev);
+    if (prev) playBeat(prev, false);
   };
 
   const stop = () => {
@@ -101,10 +123,11 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     setCurrentBeatId(null);
     setCurrentTime(0);
     setDuration(0);
+    setWithVocals(false);
   };
 
   return (
-    <AudioPlayerContext.Provider value={{ currentBeatId, currentBeat, isPlaying, currentTime, duration, togglePlay, seek, playNext, playPrev, stop }}>
+    <AudioPlayerContext.Provider value={{ currentBeatId, currentBeat, isPlaying, currentTime, duration, withVocals, togglePlay, toggleVocals, seek, playNext, playPrev, stop }}>
       {children}
     </AudioPlayerContext.Provider>
   );

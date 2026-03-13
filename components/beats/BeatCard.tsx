@@ -9,8 +9,9 @@ interface BeatCardProps {
 }
 
 export function BeatCard({ beat }: BeatCardProps) {
-  const { currentBeatId, isPlaying, togglePlay } = useAudioPlayer();
+  const { currentBeatId, isPlaying, withVocals, togglePlay, toggleVocals } = useAudioPlayer();
   const isThisPlaying = currentBeatId === beat.id && isPlaying;
+  const isThisVocals = currentBeatId === beat.id && withVocals;
 
   return (
     <article className="relative aspect-square overflow-hidden rounded-2xl bg-black">
@@ -51,8 +52,17 @@ export function BeatCard({ beat }: BeatCardProps) {
             <h3 className="text-sm font-semibold text-white line-clamp-1">{beat.title}</h3>
             <p className="mt-0.5 text-xs text-gray-300 line-clamp-1">{beat.genre}</p>
           </div>
-          {beat.featured && (
-            <Badge variant="default" className="text-[0.6rem] shrink-0">Featured</Badge>
+          {beat.vocalsUrl && (
+            <button
+              onClick={(e) => { e.stopPropagation(); toggleVocals(beat); }}
+              className={`text-[0.6rem] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full border transition-colors shrink-0 pointer-events-auto z-20 relative ${
+                isThisVocals
+                  ? "bg-white text-black border-white"
+                  : "bg-transparent text-white border-white/60 hover:border-white"
+              }`}
+            >
+              VOCALS
+            </button>
           )}
         </div>
 
