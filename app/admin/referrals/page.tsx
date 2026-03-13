@@ -3,11 +3,11 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { PayoutActions } from "./PayoutActions";
 
-const ADMIN_USER_ID = process.env.ADMIN_USER_ID;
+const ADMIN_USER_ID = process.env.ADMIN_USER_ID?.trim();
 
 export default async function AdminReferralsPage() {
   const { userId } = await auth();
-  if (!userId || userId !== ADMIN_USER_ID) redirect("/");
+  if (!userId || userId.trim() !== ADMIN_USER_ID) redirect("/");
 
   // All referred PAID orders grouped by affiliate
   const referredOrders = await db.order.findMany({
