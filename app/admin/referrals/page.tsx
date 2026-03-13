@@ -7,7 +7,12 @@ const ADMIN_USER_ID = process.env.ADMIN_USER_ID;
 
 export default async function AdminReferralsPage() {
   const { userId } = await auth();
-  if (!userId || userId !== ADMIN_USER_ID) redirect("/");
+  if (!userId || userId !== ADMIN_USER_ID) {
+    return <div style={{padding:20,fontFamily:'monospace'}}>
+      <p>userId: {userId ?? 'NOT LOGGED IN'}</p>
+      <p>expected: {ADMIN_USER_ID ?? 'NOT SET'}</p>
+    </div>;
+  }
 
   // All referred PAID orders grouped by affiliate
   const referredOrders = await db.order.findMany({
