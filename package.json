@@ -1,0 +1,45 @@
+{
+  "name": "lana-nova-beats",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "prisma generate",
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:seed": "npx ts-node prisma/seed.ts",
+    "db:studio": "npx prisma studio",
+    "db:migrate": "npx prisma migrate dev",
+    "db:push": "npx prisma db push"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^5.7.5",
+    "@paypal/react-paypal-js": "^9.0.1",
+    "@prisma/adapter-pg": "^7.4.2",
+    "@prisma/client": "^7.4.2",
+    "@types/pg": "^8.18.0",
+    "clsx": "^2.1.0",
+    "next": "^14.2.35",
+    "pg": "^8.20.0",
+    "prisma": "^7.4.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "stripe": "^16.0.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.6.0"
+  }
+}

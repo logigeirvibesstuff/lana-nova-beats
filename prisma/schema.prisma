@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Beat {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  title        String
+  bpm          Int
+  key          String
+  genre        String
+  moods        String[]
+  tags         String[]
+  coverImage   String
+  previewUrl   String
+  defaultPrice Decimal  @db.Decimal(10, 2)
+  featured     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  orderItems OrderItem[]
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  paymentId   String      @unique
+  accessToken String?     @unique @default(cuid())
+  email       String
+  status      OrderStatus @default(PENDING)
+  total     Decimal     @db.Decimal(10, 2)
+  currency  String      @default("usd")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  items       OrderItem[]
+  referredBy  String?
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  FULFILLED
+  REFUNDED
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  beatId      String
+  licenseId   String
+  quantity    Int     @default(1)
+  unitAmount  Decimal @db.Decimal(10, 2)
+  downloadUrl String?
+
+  order Order @relation(fields: [orderId], references: [id])
+  beat  Beat  @relation(fields: [beatId], references: [id])
+}
+
+model License {
+  id              String  @id
+  name            String
+  description     String
+  usageSummary    String
+  priceMultiplier Decimal @db.Decimal(5, 2)
+}
+
+model PayoutRequest {
+  id           String        @id @default(cuid())
+  affiliateId  String
+  paypalEmail  String
+  amount       Decimal       @db.Decimal(10, 2)
+  status       PayoutStatus  @default(PENDING)
+  requestedAt  DateTime      @default(now())
+  paidAt       DateTime?
+}
+
+enum PayoutStatus {
+  PENDING
+  PAID
+  REJECTED
+}
