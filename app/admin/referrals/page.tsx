@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { beats } from "@/data/beats";
 import { PayoutActions } from "./PayoutActions";
 
 const ADMIN_USER_ID = process.env.ADMIN_USER_ID?.trim();
@@ -12,13 +13,13 @@ export default async function AdminReferralsPage() {
   const [referredOrders, payoutRequests, allOrders] = await Promise.all([
     db.order.findMany({
       where: { referredBy: { not: null }, status: "PAID" },
-      include: { items: { include: { beat: true } } },
+      include: { items: true },
       orderBy: { createdAt: "desc" },
     }),
     db.payoutRequest.findMany({ orderBy: { requestedAt: "desc" } }),
     db.order.findMany({
       where: { status: "PAID" },
-      include: { items: { include: { beat: true } } },
+      include: { items: true },
       orderBy: { createdAt: "desc" },
     }),
   ]);
@@ -72,7 +73,7 @@ export default async function AdminReferralsPage() {
                 <div>
                   <p className="font-medium text-gray-900">{order.email}</p>
                   <p className="text-xs text-gray-400">{new Date(order.createdAt).toLocaleDateString()}</p>
-                  <p className="text-xs text-gray-400">{order.items.map((i) => i.beat.title).join(", ")}</p>
+                  <p className="text-xs text-gray-400">{order.items.map((i) => beats.find((b) => b.id === i.beatId)?.title ?? i.beatId).join(", ")}</p>
                   {order.referredBy && (
                     <p className="text-xs text-purple-500">Referred by: {order.referredBy}</p>
                   )}
@@ -116,7 +117,7 @@ export default async function AdminReferralsPage() {
                     <div>
                       <p className="font-medium text-gray-900">{order.email}</p>
                       <p className="text-xs text-gray-400">{new Date(order.createdAt).toLocaleDateString()}</p>
-                      <p className="text-xs text-gray-400">{order.items.map((i) => i.beat.title).join(", ")}</p>
+                      <p className="text-xs text-gray-400">{order.items.map((i) => beats.find((b) => b.id === i.beatId)?.title ?? i.beatId).join(", ")}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-semibold text-gray-900">${Number(order.total).toFixed(2)}</p>

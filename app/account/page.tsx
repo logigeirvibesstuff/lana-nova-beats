@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { beats } from "@/data/beats";
 import { CopyButton } from "./CopyButton";
 import { PayoutButton } from "./PayoutButton";
 
@@ -11,7 +12,7 @@ export default async function AccountPage() {
   const [referredOrders, pendingPayout] = await Promise.all([
     db.order.findMany({
       where: { referredBy: userId, status: "PAID" },
-      include: { items: { include: { beat: true } } },
+      include: { items: true },
       orderBy: { createdAt: "desc" },
     }),
     db.payoutRequest.findFirst({
@@ -88,7 +89,7 @@ export default async function AccountPage() {
                 <p className="font-medium text-gray-900">{order.email}</p>
                 <p className="text-xs text-gray-400">{new Date(order.createdAt).toLocaleDateString()}</p>
                 <p className="text-xs text-gray-400">
-                  {order.items.map((i) => i.beat.title).join(", ")}
+                  {order.items.map((i) => beats.find((b) => b.id === i.beatId)?.title ?? i.beatId).join(", ")}
                 </p>
               </div>
               <div className="text-right">
