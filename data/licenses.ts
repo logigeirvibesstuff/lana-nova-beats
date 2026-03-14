@@ -6,7 +6,7 @@ export const licenseTiers: LicenseTier[] = [
     name: "Basic Lease",
     description: "Best for early demos and small releases.",
     usageSummary: "Up to 50,000 streams, non-exclusive, 1 music video.",
-    price: 19.99,
+    price: 1,
     files: "MP3"
   },
   {
@@ -14,7 +14,7 @@ export const licenseTiers: LicenseTier[] = [
     name: "Premium Lease",
     description: "For serious independent releases and growing fanbases.",
     usageSummary: "Up to 500,000 streams, multiple music videos.",
-    price: 39.99,
+    price: 1,
     files: "MP3 + WAV"
   },
   {
@@ -22,7 +22,7 @@ export const licenseTiers: LicenseTier[] = [
     name: "Unlimited Lease",
     description: "For major releases with unlimited distribution.",
     usageSummary: "Unlimited streams, unlimited music videos, radio.",
-    price: 199,
+    price: 1,
     files: "MP3 + WAV + Trackout Stems"
   },
   {
@@ -30,7 +30,7 @@ export const licenseTiers: LicenseTier[] = [
     name: "Exclusive Rights",
     description: "One-time purchase — beat removed from catalog.",
     usageSummary: "Full exclusive ownership, unlimited commercial rights.",
-    price: 799,
+    price: 1,
     files: "MP3 + WAV + Trackout Stems"
   }
 ];
