@@ -109,9 +109,17 @@ export function BeatDetailClient({ beat }: BeatDetailClientProps) {
                 );
               })}
             </div>
-            <Button className="w-full" size="lg" onClick={handleAddToCart}>
-              Add to cart
-            </Button>
+            {beat.exclusiveContact && selectedLicenseId === "exclusive" ? (
+              <a href={`mailto:${beat.exclusiveContact}`} className="block w-full">
+                <Button className="w-full" size="lg">
+                  Contact us for Exclusive Rights
+                </Button>
+              </a>
+            ) : (
+              <Button className="w-full" size="lg" onClick={handleAddToCart}>
+                Add to cart
+              </Button>
+            )}
             <p className="text-[0.7rem] text-gray-500">
               By purchasing, you agree to the Unleashed Gems license terms
               outlined on the Licenses page.

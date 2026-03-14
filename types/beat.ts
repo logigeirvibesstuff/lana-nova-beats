@@ -24,6 +24,7 @@ export interface Beat {
   tags: string[];
   createdAt: string;
   featured?: boolean;
+  exclusiveContact?: string;
   downloadUrl?: string;
   downloadUrls?: {
     basic?: string;

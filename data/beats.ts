@@ -127,6 +127,27 @@ export const beats: Beat[] = [
       exclusive: "https://drive.google.com/drive/folders/18etypFiQLVOYBJ0uBsAykFsC5ViV3fDx"
     }
   }
+  ,{
+    id: "midnight-vol2",
+    slug: "midnight-vol2",
+    title: "Midnight Vol. 2",
+    bpm: 85,
+    key: "A# minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/midnight-vol2.jpg",
+    previewUrl: "/audio/midnight-vol2.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-14T00:00:00.000Z",
+    featured: true,
+    exclusiveContact: "loyiibeats@gmail.com",
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1mA3qIiQQ28tbyw1RPsfxgmfcRC1sTdLC",
+      premium: "https://drive.google.com/drive/folders/1BXGIUR1FScIgWo_fXxcAbZXS4z7Ng2rP",
+      unlimited: "https://drive.google.com/drive/folders/1FmfJ201a8oAqxinBUZ6WUGk1s2weJpEq"
+    }
+  }
 ];
 
 export function getBeatBySlug(slug: string) {
