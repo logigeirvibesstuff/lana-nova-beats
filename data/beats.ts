@@ -64,6 +64,27 @@ export const beats: Beat[] = [
       exclusive: "https://drive.google.com/drive/folders/1wOjqWOC2eui1KXuDcuJ2_bdcn1va2Hf8"
     }
   }
+  ,{
+    id: "midnight",
+    slug: "midnight",
+    title: "Midnight",
+    bpm: 100,
+    key: "A# minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/midnight.jpg",
+    previewUrl: "/audio/midnight.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-14T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1xjj5Rca3ArNXBtdkPXIvm0s4Jk9SI842",
+      premium: "https://drive.google.com/drive/folders/1uLHVc77nyaTB_94VblnKdGFApQHUe_6P",
+      unlimited: "https://drive.google.com/drive/folders/15k9YO_SodyTLWuP5AKtYC2BiJOAAUOEl",
+      exclusive: "https://drive.google.com/drive/folders/1H2Hr9m0cT2UwhyG6iGoRHFJkKqJIdLW3"
+    }
+  }
 ];
 
 export function getBeatBySlug(slug: string) {
