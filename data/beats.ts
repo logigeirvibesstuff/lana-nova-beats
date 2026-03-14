@@ -16,9 +16,9 @@ export const beats: Beat[] = [
     createdAt: "2026-03-14T00:00:00.000Z",
     featured: true,
     downloadUrls: {
-      basic: "https://drive.google.com/uc?id=1FQkzoAIvos3DYL7ip3q1g-zVEWIk7SqW&export=download",
-      premium: "https://drive.google.com/uc?id=1R7sE195h5ndArwuoh3eFjaVE-gyscohR&export=download",
-      unlimited: "https://drive.google.com/uc?id=1a1Ysr2JFAYeKicyaTcogabRUvu9x_Jpv&export=download",
+      basic: "https://drive.google.com/uc?id=1R7sE195h5ndArwuoh3eFjaVE-gyscohR&export=download",
+      premium: "https://drive.google.com/uc?id=1a1Ysr2JFAYeKicyaTcogabRUvu9x_Jpv&export=download",
+      unlimited: "https://drive.google.com/drive/folders/181OSFKG9r-kt1wDAUmLyfic8E4xsOKTs",
       exclusive: "https://drive.google.com/drive/folders/181OSFKG9r-kt1wDAUmLyfic8E4xsOKTs"
     }
   }
