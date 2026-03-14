@@ -58,10 +58,14 @@ export default function RootLayout({
             <PlayerBar />
             <a
               href="/account"
-              className="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-green-500 hover:bg-green-400 transition-colors text-white text-xs font-bold uppercase tracking-widest px-2 py-4 rounded-l-xl shadow-lg"
-              style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+              className="fixed right-0 top-1/2 -translate-y-1/2 z-40 w-14 h-64 rounded-l-2xl overflow-hidden shadow-2xl hover:w-16 transition-all duration-200 group"
             >
-              Get paid to share · 50% commission
+              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/affiliate-bg.jpg')" }} />
+              <div className="absolute inset-0 bg-black/55 group-hover:bg-black/40 transition-colors" />
+              <div className="relative h-full flex flex-col items-center justify-center gap-3 px-1">
+                <p className="text-white text-[0.55rem] font-bold uppercase tracking-widest text-center leading-tight" style={{ writingMode: "vertical-rl" }}>Get paid to share</p>
+                <span className="bg-green-500 text-white text-[0.5rem] font-bold px-1.5 py-0.5 rounded-full">50%</span>
+              </div>
             </a>
           </div>
         </Providers>
