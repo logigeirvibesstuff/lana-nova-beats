@@ -56,6 +56,13 @@ export default function RootLayout({
             </main>
             <SiteFooter />
             <PlayerBar />
+            <a
+              href="/account"
+              className="fixed right-0 top-1/2 -translate-y-1/2 z-40 bg-green-500 hover:bg-green-400 transition-colors text-white text-xs font-bold uppercase tracking-widest px-2 py-4 rounded-l-xl shadow-lg"
+              style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+            >
+              Get paid to share · 50% commission
+            </a>
           </div>
         </Providers>
       </body>
