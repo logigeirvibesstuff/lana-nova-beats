@@ -87,6 +87,20 @@ export default function HomePage() {
           <FeaturedBeats />
         </div>
       </section>
+      <section className="border-t border-black/10 border-dashed pt-6 pb-2">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-base font-semibold text-gray-900">Having trouble with something?</h2>
+            <p className="text-sm text-gray-600">Our team will look at it immediately.</p>
+          </div>
+          <a
+            href="mailto:loyiibeats@gmail.com"
+            className="text-sm font-medium text-purple-600 hover:text-purple-500 transition-colors"
+          >
+            loyiibeats@gmail.com
+          </a>
+        </div>
+      </section>
     </div>
   );
 }
