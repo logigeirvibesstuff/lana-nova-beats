@@ -148,6 +148,27 @@ export const beats: Beat[] = [
       unlimited: "https://drive.google.com/drive/folders/1FmfJ201a8oAqxinBUZ6WUGk1s2weJpEq"
     }
   }
+  ,{
+    id: "underwater",
+    slug: "underwater",
+    title: "Underwater",
+    bpm: 108,
+    key: "D minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/underwater.jpg",
+    previewUrl: "/audio/underwater.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-14T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1_i8pz-u8O9h34eoI2ZprKMYYZHSxvrJ2",
+      premium: "https://drive.google.com/drive/folders/17Mv7K8j1m1ciGGwt_3HPVzJroCS5P0Aq",
+      unlimited: "https://drive.google.com/drive/folders/1RNPAAwAHgY3XWMYS04p_LHa0FpALRU3E",
+      exclusive: "https://drive.google.com/drive/folders/1-iL5UpaI4_ESAIjIOq053k7p1lk29p0c"
+    }
+  }
 ];
 
 export function getBeatBySlug(slug: string) {
