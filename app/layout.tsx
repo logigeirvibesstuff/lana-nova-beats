@@ -58,13 +58,15 @@ export default function RootLayout({
             <PlayerBar />
             <a
               href="/account"
-              className="fixed right-0 top-1/2 -translate-y-1/2 z-40 w-14 h-64 rounded-l-2xl overflow-hidden shadow-2xl hover:w-16 transition-all duration-200 group"
+              className="fixed right-0 top-1/2 -translate-y-1/2 z-40 w-52 h-80 rounded-l-2xl overflow-hidden shadow-2xl hover:brightness-110 transition-all duration-200 group"
             >
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/affiliate-bg.jpg')" }} />
               <div className="absolute inset-0 bg-black/55 group-hover:bg-black/40 transition-colors" />
-              <div className="relative h-full flex flex-col items-center justify-center gap-3 px-1">
-                <p className="text-white text-[0.55rem] font-bold uppercase tracking-widest text-center leading-tight" style={{ writingMode: "vertical-rl" }}>Get paid to share</p>
-                <span className="bg-green-500 text-white text-[0.5rem] font-bold px-1.5 py-0.5 rounded-full">50%</span>
+              <div className="relative h-full flex flex-col items-center justify-center gap-4 px-4 text-center">
+                <p className="text-[0.6rem] uppercase tracking-[0.2em] text-gray-300">Affiliate program</p>
+                <p className="text-white text-xl font-bold leading-tight">Get paid to share.</p>
+                <p className="text-gray-300 text-xs">Earn 50% commission on every sale through your link.</p>
+                <span className="bg-green-500 hover:bg-green-400 text-white text-xs font-bold px-4 py-2 rounded-full">Start earning</span>
               </div>
             </a>
           </div>
