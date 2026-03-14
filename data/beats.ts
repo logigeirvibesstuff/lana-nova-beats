@@ -43,6 +43,27 @@ export const beats: Beat[] = [
       exclusive: "https://drive.google.com/drive/folders/18OSksNKPma1PwzbXTRWK820CiEmqLeMa"
     }
   }
+  ,{
+    id: "rearview",
+    slug: "rearview",
+    title: "Rearview",
+    bpm: 90,
+    key: "F minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/rearview.jpg",
+    previewUrl: "/audio/rearview.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-14T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/18mzvByAFHEsLGzhGMocoMjb9ssV22QYU",
+      premium: "https://drive.google.com/drive/folders/12vZcfs113VoIZqy2vZ5bH6NI2scCiwQE",
+      unlimited: "https://drive.google.com/drive/folders/1b2Iw_YIstxvGVrWwEZx3lWWywQkw6MnS",
+      exclusive: "https://drive.google.com/drive/folders/1wOjqWOC2eui1KXuDcuJ2_bdcn1va2Hf8"
+    }
+  }
 ];
 
 export function getBeatBySlug(slug: string) {
