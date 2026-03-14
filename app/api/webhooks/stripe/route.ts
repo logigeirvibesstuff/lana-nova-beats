@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { getStripeClient } from "@/lib/stripe";
 import { db } from "@/lib/db";
+import { beats } from "@/data/beats";
+import type { LicenseTierId } from "@/types/beat";
 
 export async function POST(req: Request) {
   const body = await req.text();
@@ -59,11 +61,14 @@ async function handleCheckoutComplete(session: Stripe.Checkout.Session) {
           const product = item.price?.product as Stripe.Product | undefined;
           const beatId = product?.metadata?.beatId ?? "";
           const licenseId = product?.metadata?.licenseTierId ?? "basic";
+          const beat = beats.find((b) => b.id === beatId);
+          const downloadUrl = beat?.downloadUrls?.[licenseId as LicenseTierId] ?? beat?.downloadUrl ?? "";
           return {
             beatId,
             licenseId,
             quantity: item.quantity ?? 1,
             unitAmount: (item.price?.unit_amount ?? 0) / 100,
+            downloadUrl,
           };
         }),
       },
