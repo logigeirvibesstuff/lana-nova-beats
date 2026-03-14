@@ -190,6 +190,27 @@ export const beats: Beat[] = [
       exclusive: "https://drive.google.com/drive/folders/1cb9a_OSrVgVznCzJ65evBbK00SL4gxJ6"
     }
   }
+  ,{
+    id: "drown-in-thoughts",
+    slug: "drown-in-thoughts",
+    title: "Drown In Thoughts",
+    bpm: 90,
+    key: "A# minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/drown-in-thoughts.jpg",
+    previewUrl: "/audio/drown-in-thoughts.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-14T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1cb9a_OSrVgVznCzJ65evBbK00SL4gxJ6",
+      premium: "https://drive.google.com/drive/folders/1-iC67Nr5tnJLMEyvqYwQko21hgwnDlGo",
+      unlimited: "https://drive.google.com/drive/folders/1Nr5ucRmuMH-JuiDG5Neqf9Yn6rasc5Gu",
+      exclusive: "https://drive.google.com/drive/folders/1CkTJXbQLkfimsehTIhdqn1k6ojAtC3r5"
+    }
+  }
 ];
 
 export function getBeatBySlug(slug: string) {
