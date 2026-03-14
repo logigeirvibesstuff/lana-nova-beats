@@ -1,3 +1,4 @@
+import Script from "next/script";
 import type { Metadata } from "next";
 import { Bebas_Neue, Montserrat } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -37,6 +38,15 @@ export default function RootLayout({
   return (
     <ClerkProvider>
     <html lang="en" className={`${bebasNeue.variable} ${montserrat.variable}`}>
+      <head>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-NCYFMXP0R3" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-NCYFMXP0R3');
+        `}</Script>
+      </head>
       <body className="min-h-screen bg-background">
         <Providers>
           <div className="flex min-h-screen flex-col">
