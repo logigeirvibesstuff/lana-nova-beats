@@ -6,7 +6,7 @@ export const beats: Beat[] = [
     slug: "in-my-thoughts",
     title: "In My Thoughts",
     bpm: 90,
-    key: "Unknown",
+    key: "A# minor",
     genre: "R&B",
     moods: ["rnb", "vibes", "smooth"],
     coverImage: "/covers/in-my-thoughts.jpg",
