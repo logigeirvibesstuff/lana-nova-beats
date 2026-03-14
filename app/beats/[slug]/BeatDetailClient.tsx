@@ -80,8 +80,27 @@ export function BeatDetailClient({ beat }: BeatDetailClientProps) {
             </p>
             <div className="space-y-3">
               {licenseTiers.map((license) => {
+                const isExclusiveContact = license.id === "exclusive" && beat.exclusiveContact;
                 const price = computePrice(license);
                 const isSelected = selectedLicenseId === license.id;
+                if (isExclusiveContact) {
+                  return (
+                    <a
+                      key={license.id}
+                      href={`mailto:${beat.exclusiveContact}`}
+                      className="block w-full rounded-2xl border-2 border-gray-200 bg-white p-3 text-left text-sm hover:border-purple-400 transition"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <p className="font-medium text-gray-900">{license.name}</p>
+                          <p className="text-xs text-gray-600">{license.usageSummary}</p>
+                          <p className="text-xs text-purple-500 font-medium mt-0.5">{license.files}</p>
+                        </div>
+                        <p className="text-sm font-semibold text-purple-600 whitespace-nowrap">Contact us</p>
+                      </div>
+                    </a>
+                  );
+                }
                 return (
                   <button
                     key={license.id}
@@ -95,15 +114,11 @@ export function BeatDetailClient({ beat }: BeatDetailClientProps) {
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div>
-                        <p className="font-medium text-gray-900">
-                          {license.name}
-                        </p>
+                        <p className="font-medium text-gray-900">{license.name}</p>
                         <p className="text-xs text-gray-600">{license.usageSummary}</p>
                         <p className="text-xs text-purple-500 font-medium mt-0.5">{license.files}</p>
                       </div>
-                      <p className="text-sm font-semibold text-purple-600">
-                        ${price}
-                      </p>
+                      <p className="text-sm font-semibold text-purple-600">${price}</p>
                     </div>
                   </button>
                 );
