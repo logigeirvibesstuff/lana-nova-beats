@@ -169,6 +169,27 @@ export const beats: Beat[] = [
       exclusive: "https://drive.google.com/drive/folders/1-iL5UpaI4_ESAIjIOq053k7p1lk29p0c"
     }
   }
+  ,{
+    id: "under-my-surface",
+    slug: "under-my-surface",
+    title: "Under My Surface",
+    bpm: 90,
+    key: "C minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/under-my-surface.jpg",
+    previewUrl: "/audio/under-my-surface.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-14T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1WMUWqMf8AOpNOZOEsY2CD99MJtt3SFgE",
+      premium: "https://drive.google.com/drive/folders/1xSJqPhtlxYU1nIUOeqmD-LOAUxbHjeEK",
+      unlimited: "https://drive.google.com/drive/folders/1azdBi8wfsEnsvpjdEz_L7Ho5kyJytcH6",
+      exclusive: "https://drive.google.com/drive/folders/1cb9a_OSrVgVznCzJ65evBbK00SL4gxJ6"
+    }
+  }
 ];
 
 export function getBeatBySlug(slug: string) {
