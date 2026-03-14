@@ -79,7 +79,7 @@ export function BeatDetailClient({ beat }: BeatDetailClientProps) {
               later by contacting Unleashed Gems.
             </p>
             <div className="space-y-3">
-              {licenseTiers.map((license) => {
+              {licenseTiers.filter(l => !beat.availableLicenses || beat.availableLicenses.includes(l.id)).map((license) => {
                 const isExclusiveContact = license.id === "exclusive" && beat.exclusiveContact;
                 const price = computePrice(license);
                 const isSelected = selectedLicenseId === license.id;

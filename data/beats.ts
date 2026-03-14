@@ -211,6 +211,26 @@ export const beats: Beat[] = [
       exclusive: "https://drive.google.com/drive/folders/1CkTJXbQLkfimsehTIhdqn1k6ojAtC3r5"
     }
   }
+  ,{
+    id: "deep-end-confessions",
+    slug: "deep-end-confessions",
+    title: "Deep End Confessions",
+    bpm: 90,
+    key: "A# minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/deep-end-confessions.jpg",
+    previewUrl: "/audio/deep-end-confessions.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-14T00:00:00.000Z",
+    featured: true,
+    availableLicenses: ["basic", "premium"],
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1tInopOIuPcqQ7AYlxGvGbmvt8T7j0DWu",
+      premium: "https://drive.google.com/drive/folders/1PBKpnWTgQ1c4l7EfJpJ46uiA2B7GB0mi"
+    }
+  }
 ];
 
 export function getBeatBySlug(slug: string) {
