@@ -106,6 +106,27 @@ export const beats: Beat[] = [
       exclusive: "https://drive.google.com/drive/folders/1JslRMjvgq4j0LX5d7W4Od_N7AnQGavnb"
     }
   }
+  ,{
+    id: "drown-in-condo-lights",
+    slug: "drown-in-condo-lights",
+    title: "Drown In Condo Lights",
+    bpm: 140,
+    key: "B minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/drown-in-condo-lights.jpg",
+    previewUrl: "/audio/drown-in-condo-lights.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-14T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/17SXh8TKPo7w2lf4tQGWKQKY_8pLk--vi",
+      premium: "https://drive.google.com/drive/folders/1kR4mE0dWiwYghgv8_M606Bh71A6B9riW",
+      unlimited: "https://drive.google.com/drive/folders/1_4Ae5YseT3MC0VV454gWpW7zM9KXIhcV",
+      exclusive: "https://drive.google.com/drive/folders/18etypFiQLVOYBJ0uBsAykFsC5ViV3fDx"
+    }
+  }
 ];
 
 export function getBeatBySlug(slug: string) {
