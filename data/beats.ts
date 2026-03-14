@@ -10,7 +10,7 @@ export const beats: Beat[] = [
     genre: "R&B",
     moods: ["rnb", "vibes", "smooth"],
     coverImage: "/covers/in-my-thoughts.jpg",
-    previewUrl: "https://drive.google.com/uc?id=1FQkzoAIvos3DYL7ip3q1g-zVEWIk7SqW&export=download",
+    previewUrl: "/audio/in-my-thoughts.mp3",
     defaultPrice: 19.99,
     tags: ["drake"],
     createdAt: "2026-03-14T00:00:00.000Z",
