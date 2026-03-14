@@ -22,8 +22,6 @@ model Beat {
   featured     Boolean  @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  orderItems OrderItem[]
 }
 
 model Order {
@@ -58,7 +56,6 @@ model OrderItem {
   downloadUrl String?
 
   order Order @relation(fields: [orderId], references: [id])
-  beat  Beat  @relation(fields: [beatId], references: [id])
 }
 
 model License {
