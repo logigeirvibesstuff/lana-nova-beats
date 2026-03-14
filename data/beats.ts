@@ -85,6 +85,27 @@ export const beats: Beat[] = [
       exclusive: "https://drive.google.com/drive/folders/1H2Hr9m0cT2UwhyG6iGoRHFJkKqJIdLW3"
     }
   }
+  ,{
+    id: "higher-than-my-hometown",
+    slug: "higher-than-my-hometown",
+    title: "Higher Than My Hometown",
+    bpm: 100,
+    key: "A# minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/higher-than-my-hometown.jpg",
+    previewUrl: "/audio/higher-than-my-hometown.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-14T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1e8enK-i5UDr_AQFrU-XIvPzYU2orcfTt",
+      premium: "https://drive.google.com/drive/folders/1-AtbNJRb4Rkx97j13ASlcWQGO545DNjj",
+      unlimited: "https://drive.google.com/drive/folders/1vsakLoNMzyeYnbyIOASXLnKadbeNc9mT",
+      exclusive: "https://drive.google.com/drive/folders/1JslRMjvgq4j0LX5d7W4Od_N7AnQGavnb"
+    }
+  }
 ];
 
 export function getBeatBySlug(slug: string) {
