@@ -39,6 +39,7 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en" className={`${bebasNeue.variable} ${montserrat.variable}`}>
       <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <Script async src="https://www.googletagmanager.com/gtag/js?id=G-NCYFMXP0R3" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
