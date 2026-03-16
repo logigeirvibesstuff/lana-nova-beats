@@ -212,6 +212,27 @@ export const beats: Beat[] = [
     }
   }
   ,{
+    id: "drownin",
+    slug: "drownin",
+    title: "DROWNIN",
+    bpm: 120,
+    key: "B minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/drownin.jpg",
+    previewUrl: "/audio/drownin.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-16T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/16zMP1yo9eaWQUy6Er_dbysvVBPNUUYQm?usp=sharing",
+      premium: "https://drive.google.com/drive/folders/1-wNuN2cGCvuY_TSs2NiNHBGn1T0BcTiv?usp=sharing",
+      unlimited: "https://drive.google.com/drive/folders/1HqO_kOoUJtT0tc4Ul8ix8XzMnjX3LqqZ?usp=sharing",
+      exclusive: "https://drive.google.com/drive/folders/1v7hxofMXBVohUvWvPJxdtQQd-KkF6uXW?usp=sharing"
+    }
+  }
+  ,{
     id: "quarter-tank",
     slug: "quarter-tank",
     title: "Quarter Tank",
