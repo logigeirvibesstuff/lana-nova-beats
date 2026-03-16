@@ -34,5 +34,5 @@ Thumbs.db
 /lib/generated/prisma
 
 # Large media files (host on CDN/Railway volume instead)
-public/audio/
+public/audio/*.wav
 tsconfig.tsbuildinfo

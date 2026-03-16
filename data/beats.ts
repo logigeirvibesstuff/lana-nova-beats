@@ -212,6 +212,90 @@ export const beats: Beat[] = [
     }
   }
   ,{
+    id: "quarter-tank",
+    slug: "quarter-tank",
+    title: "Quarter Tank",
+    bpm: 90,
+    key: "F minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/quarter-tank.jpg",
+    previewUrl: "/audio/quarter-tank.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-16T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1fgR3R3T5qKG-UP3xxwJWsVspa5STxFvS?usp=sharing",
+      premium: "https://drive.google.com/drive/folders/1cXY91kSdn6_TQ_NE5Itc-Du4U2Vr0ZF0?usp=sharing",
+      unlimited: "https://drive.google.com/drive/folders/1Pf8nkswQmJ_4bwZ__QgOlWZzxd95t50H?usp=sharing",
+      exclusive: "https://drive.google.com/drive/folders/1U7_ocQu5KgEvx5WYXZw4n3pjYSqXssM9?usp=sharing"
+    }
+  }
+  ,{
+    id: "rearview-ghost",
+    slug: "rearview-ghost",
+    title: "Rearview Ghost",
+    bpm: 95,
+    key: "D minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/rearview-ghost.jpg",
+    previewUrl: "/audio/rearview-ghost.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-16T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1q4TmkElQGv6GYbAJcvT8z7hzwRjDUp9S?usp=sharing",
+      premium: "https://drive.google.com/drive/folders/1SFMieugplPrevCW3S-M2XVybvJiiziw-?usp=sharing",
+      unlimited: "https://drive.google.com/drive/folders/1s0Jwrg1HbZo-ZcuD20xtuhgKqyF3wt2S?usp=sharing",
+      exclusive: "https://drive.google.com/drive/folders/1CeFNX97U1mj44wu3-jnKOxf1azz2RwFA?usp=sharing"
+    }
+  }
+  ,{
+    id: "beneath",
+    slug: "beneath",
+    title: "Beneath",
+    bpm: 120,
+    key: "A# minor",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/beneath.jpg",
+    previewUrl: "/audio/beneath.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-16T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/1yoA3gL-tKZ6bUrYIx5BiBjjmiD-mPUHX?usp=sharing",
+      premium: "https://drive.google.com/drive/folders/1dzayNV0KPyW7tpwtVKTwEmvXB7mZpyZ6?usp=sharing",
+      unlimited: "https://drive.google.com/drive/folders/1uKccu_fOUMnB0OYikBTeMc1XQM3jdBqb?usp=sharing",
+      exclusive: "https://drive.google.com/drive/folders/1Yiy8aVhHy2Pkl9S0Cr7FE4ZVpdzsMVRc?usp=sharing"
+    }
+  }
+  ,{
+    id: "in-the-dark",
+    slug: "in-the-dark",
+    title: "In The Dark",
+    bpm: 128,
+    key: "Eb major",
+    genre: "R&B",
+    moods: ["rnb", "vibes", "smooth"],
+    coverImage: "/covers/in-the-dark.webp",
+    previewUrl: "/audio/in-the-dark.mp3",
+    defaultPrice: 19.99,
+    tags: ["drake", "bryson tiller"],
+    createdAt: "2026-03-16T00:00:00.000Z",
+    featured: true,
+    downloadUrls: {
+      basic: "https://drive.google.com/drive/folders/14RgMmw05RMmnaZ-Od9_bZ8KaL3320uQy?usp=sharing",
+      premium: "https://drive.google.com/drive/folders/1XRO7pRsUZhfqpQ9do_QnV2sTIARunxG0?usp=sharing",
+      unlimited: "https://drive.google.com/drive/folders/10prMuLup14mdsrTCGVJaD5JYSb1JBsGG?usp=sharing",
+      exclusive: "https://drive.google.com/drive/folders/1kEmCWMKOVp2BgozD6l8e9hMzgoEMNLLL?usp=sharing"
+    }
+  }
+  ,{
     id: "deep-end-confessions",
     slug: "deep-end-confessions",
     title: "Deep End Confessions",
