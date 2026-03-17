@@ -32,6 +32,13 @@ const slides = [
     sub: "Exclusive rights available. Artist-friendly terms.",
     cta: { text: "See licenses", href: "/licenses" },
   },
+  {
+    bg: "/beat-bg.webp",
+    label: "For producers",
+    heading: "Want your own beat-selling website like this?",
+    sub: "We build custom beat stores. Get in touch and let's make it happen.",
+    cta: { text: "Contact us", href: "mailto:loyiibeats@gmail.com", external: true },
+  },
 ];
 
 export function HeroBanner() {
@@ -70,12 +77,21 @@ export function HeroBanner() {
           <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-3">{slide.heading}</h2>
           <p className="text-sm text-gray-300 max-w-md">{slide.sub}</p>
         </div>
-        <Link
-          href={slide.cta.href}
-          className={`shrink-0 text-white text-xl font-bebas tracking-widest px-10 py-4 rounded-full transition ${"green" in slide.cta && slide.cta.green ? "bg-green-600 hover:bg-green-500 shadow-[0_0_18px_rgba(22,163,74,0.7)]" : "bg-lana-purple hover:bg-lana-accent shadow-[0_0_18px_rgba(91,33,255,0.7)]"}`}
-        >
-          {slide.cta.text}
-        </Link>
+        {"external" in slide.cta && slide.cta.external ? (
+          <a
+            href={slide.cta.href}
+            className="shrink-0 text-white text-xl font-bebas tracking-widest px-10 py-4 rounded-full transition bg-lana-purple hover:bg-lana-accent shadow-[0_0_18px_rgba(91,33,255,0.7)]"
+          >
+            {slide.cta.text}
+          </a>
+        ) : (
+          <Link
+            href={slide.cta.href}
+            className={`shrink-0 text-white text-xl font-bebas tracking-widest px-10 py-4 rounded-full transition ${"green" in slide.cta && slide.cta.green ? "bg-green-600 hover:bg-green-500 shadow-[0_0_18px_rgba(22,163,74,0.7)]" : "bg-lana-purple hover:bg-lana-accent shadow-[0_0_18px_rgba(91,33,255,0.7)]"}`}
+          >
+            {slide.cta.text}
+          </Link>
+        )}
       </div>
 
       {/* Dots */}
