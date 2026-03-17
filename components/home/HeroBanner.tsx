@@ -36,7 +36,7 @@ const slides = [
     bg: "/beat-bg.webp",
     label: "For producers",
     heading: "Want your own beat-selling website like this?",
-    sub: "We build custom beat stores. Get in touch and let's make it happen.",
+    sub: "We build custom beat stores. Contact us at loyiibeats@gmail.com",
     cta: { text: "Contact us", href: "mailto:loyiibeats@gmail.com", external: true },
   },
 ];
