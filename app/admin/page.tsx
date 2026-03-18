@@ -2,11 +2,11 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { AdminBeatForm } from "./AdminBeatForm";
 
-export default function AdminPage() {
-  const { userId } = auth();
+export default async function AdminPage() {
+  const { userId } = await auth();
 
-  if (userId !== process.env.ADMIN_USER_ID) {
-    redirect("/");
+  if (!userId || userId.trim() !== process.env.ADMIN_USER_ID?.trim()) {
+    redirect(`/?debug_uid=${userId}&expected=${process.env.ADMIN_USER_ID}`);
   }
 
   return (
