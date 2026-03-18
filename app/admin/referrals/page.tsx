@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { beats } from "@/data/beats";
 import { PayoutActions } from "./PayoutActions";
+import { AdminBeatForm } from "../AdminBeatForm";
 
 const ADMIN_USER_ID = process.env.ADMIN_USER_ID?.trim();
 
@@ -44,6 +45,14 @@ export default async function AdminReferralsPage() {
   return (
     <div className="max-w-4xl mx-auto py-10 space-y-12 px-4">
       <h1 className="text-2xl font-semibold text-gray-900">Admin Dashboard</h1>
+
+      {/* Upload Beat */}
+      <div>
+        <h2 className="text-lg font-semibold text-gray-900 mb-4">Upload Beat</h2>
+        <div className="card-surface p-6">
+          <AdminBeatForm />
+        </div>
+      </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
