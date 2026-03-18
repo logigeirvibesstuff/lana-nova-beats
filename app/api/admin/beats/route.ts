@@ -19,8 +19,8 @@ async function uploadToCloudinary(file: File, folder: string): Promise<string> {
 }
 
 export async function POST(req: Request) {
-  const { userId } = auth();
-  if (userId !== process.env.ADMIN_USER_ID) {
+  const { userId } = await auth();
+  if (!userId || userId.trim() !== process.env.ADMIN_USER_ID?.trim()) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
