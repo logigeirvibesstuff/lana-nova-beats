@@ -8,7 +8,7 @@ export async function FeaturedBeats() {
     take: 6,
   });
 
-  const beats = raw.map((b) => ({ ...b, defaultPrice: Number(b.defaultPrice) }));
+  const beats = raw.map((b) => ({ ...b, defaultPrice: Number(b.defaultPrice), createdAt: b.createdAt.toISOString(), updatedAt: b.updatedAt.toISOString() }));
 
   if (beats.length === 0) return null;
 
