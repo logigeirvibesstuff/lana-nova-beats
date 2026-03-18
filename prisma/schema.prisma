@@ -19,6 +19,7 @@ model Beat {
   coverImage    String
   previewUrl    String
   defaultPrice  Decimal  @db.Decimal(10, 2)
+  prices        Json?
   featured      Boolean  @default(false)
   downloadUrls  Json?
   createdAt     DateTime @default(now())

@@ -32,7 +32,12 @@ export async function POST(req: Request) {
   const genre = formData.get("genre") as string;
   const moods = (formData.get("moods") as string).split(",").map(s => s.trim()).filter(Boolean);
   const tags = (formData.get("tags") as string).split(",").map(s => s.trim()).filter(Boolean);
-  const defaultPrice = parseFloat(formData.get("defaultPrice") as string);
+  const priceBasic = parseFloat(formData.get("priceBasic") as string);
+  const pricePremium = parseFloat(formData.get("pricePremium") as string) || null;
+  const priceUnlimited = parseFloat(formData.get("priceUnlimited") as string) || null;
+  const priceExclusive = parseFloat(formData.get("priceExclusive") as string) || null;
+  const defaultPrice = priceBasic;
+  const prices = { basic: priceBasic, premium: pricePremium, unlimited: priceUnlimited, exclusive: priceExclusive };
   const featured = formData.get("featured") === "true";
 
   const downloadUrls = {
@@ -66,6 +71,7 @@ export async function POST(req: Request) {
       moods,
       tags,
       defaultPrice,
+      prices,
       featured,
       coverImage,
       previewUrl,

@@ -49,8 +49,20 @@ export function AdminBeatForm() {
           <input name="genre" required className="input-field" placeholder="e.g. R&B" />
         </div>
         <div className="space-y-1">
-          <label className="text-xs font-medium text-gray-700">Price ($) *</label>
-          <input name="defaultPrice" type="number" step="0.01" required defaultValue="19.99" className="input-field" />
+          <label className="text-xs font-medium text-gray-700">Basic Price ($) *</label>
+          <input name="priceBasic" type="number" step="0.01" required defaultValue="19.99" className="input-field" />
+        </div>
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-gray-700">Premium Price ($)</label>
+          <input name="pricePremium" type="number" step="0.01" defaultValue="34.99" className="input-field" />
+        </div>
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-gray-700">Unlimited Price ($)</label>
+          <input name="priceUnlimited" type="number" step="0.01" defaultValue="59.99" className="input-field" />
+        </div>
+        <div className="space-y-1">
+          <label className="text-xs font-medium text-gray-700">Exclusive Price ($)</label>
+          <input name="priceExclusive" type="number" step="0.01" defaultValue="199.99" className="input-field" />
         </div>
         <div className="space-y-1">
           <label className="text-xs font-medium text-gray-700">Moods (comma separated)</label>
