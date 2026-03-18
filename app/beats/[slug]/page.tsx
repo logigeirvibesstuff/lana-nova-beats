@@ -7,5 +7,6 @@ export default async function BeatPage({ params }: { params: { slug: string } })
 
   if (!beat) notFound();
 
-  return <BeatDetailClient beat={beat as any} />;
+  const serialized = { ...beat, defaultPrice: Number(beat.defaultPrice) };
+  return <BeatDetailClient beat={serialized as any} />;
 }

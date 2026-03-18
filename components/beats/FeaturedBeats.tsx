@@ -2,11 +2,13 @@ import { db } from "@/lib/db";
 import { BeatCard } from "./BeatCard";
 
 export async function FeaturedBeats() {
-  const beats = await db.beat.findMany({
+  const raw = await db.beat.findMany({
     where: { featured: true },
     orderBy: { createdAt: "desc" },
     take: 6,
   });
+
+  const beats = raw.map((b) => ({ ...b, defaultPrice: Number(b.defaultPrice) }));
 
   if (beats.length === 0) return null;
 
