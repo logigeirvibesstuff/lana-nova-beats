@@ -1,22 +1,11 @@
 import { notFound } from "next/navigation";
-import { beats, getBeatBySlug } from "@/data/beats";
+import { db } from "@/lib/db";
 import { BeatDetailClient } from "./BeatDetailClient";
 
-interface BeatPageProps {
-  params: { slug: string };
+export default async function BeatPage({ params }: { params: { slug: string } }) {
+  const beat = await db.beat.findUnique({ where: { slug: params.slug } });
+
+  if (!beat) notFound();
+
+  return <BeatDetailClient beat={beat as any} />;
 }
-
-export function generateStaticParams() {
-  return beats.map((beat) => ({ slug: beat.slug }));
-}
-
-export default function BeatPage({ params }: BeatPageProps) {
-  const beat = getBeatBySlug(params.slug);
-
-  if (!beat) {
-    notFound();
-  }
-
-  return <BeatDetailClient beat={beat} />;
-}
-
