@@ -1,13 +1,12 @@
 "use client";
 
 import React, { createContext, useContext, useMemo, useState } from "react";
-import type { CartItem, LicenseTierId } from "@/types/beat";
-import { getBeatBySlug } from "@/data/beats";
+import type { Beat, CartItem, LicenseTierId } from "@/types/beat";
 import { getLicenseById } from "@/data/licenses";
 
 interface CartContextValue {
   items: CartItem[];
-  addItem: (beatSlug: string, licenseTierId: LicenseTierId) => void;
+  addItem: (beat: Beat, licenseTierId: LicenseTierId) => void;
   removeItem: (id: string) => void;
   clearCart: () => void;
   subtotal: number;
@@ -19,11 +18,10 @@ const CartContext = createContext<CartContextValue | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addItem = (beatSlug: string, licenseTierId: LicenseTierId) => {
-    const beat = getBeatBySlug(beatSlug);
+  const addItem = (beat: Beat, licenseTierId: LicenseTierId) => {
     const license = getLicenseById(licenseTierId);
 
-    if (!beat || !license) {
+    if (!license) {
       return;
     }
 

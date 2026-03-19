@@ -21,7 +21,7 @@ export function BeatDetailClient({ beat }: BeatDetailClientProps) {
   const computePrice = (license: LicenseTier) => license.price;
 
   const handleAddToCart = () => {
-    addItem(beat.slug, selectedLicenseId);
+    addItem(beat, selectedLicenseId);
   };
 
   return (
