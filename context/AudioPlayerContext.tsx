@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useRef, useState } from "react";
 import type { Beat } from "@/types/beat";
-import { beats as allBeats } from "@/data/beats";
 
 interface AudioPlayerContextValue {
   currentBeatId: string | null;
@@ -11,7 +10,7 @@ interface AudioPlayerContextValue {
   currentTime: number;
   duration: number;
   withVocals: boolean;
-  togglePlay: (beat: Beat) => void;
+  togglePlay: (beat: Beat, playlist?: Beat[]) => void;
   toggleVocals: (beat: Beat) => void;
   seek: (time: number) => void;
   playNext: () => void;
@@ -23,13 +22,14 @@ const AudioPlayerContext = createContext<AudioPlayerContextValue | undefined>(un
 
 export function AudioPlayerProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [currentBeatId, setCurrentBeatId] = useState<string | null>(null);
+  const [currentBeat, setCurrentBeat] = useState<Beat | null>(null);
+  const [playlist, setPlaylist] = useState<Beat[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [withVocals, setWithVocals] = useState(false);
 
-  const currentBeat = allBeats.find((b) => b.id === currentBeatId) ?? null;
+  const currentBeatId = currentBeat?.id ?? null;
 
   const ensureAudio = () => {
     if (!audioRef.current) {
@@ -48,16 +48,18 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
   const playBeat = (beat: Beat, vocals = false) => {
     const audio = ensureAudio();
     audio.src = vocals && beat.vocalsUrl ? beat.vocalsUrl : beat.previewUrl;
-    setCurrentBeatId(beat.id);
+    setCurrentBeat(beat);
     setWithVocals(vocals);
     setCurrentTime(0);
     setDuration(0);
     audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
   };
 
-  const togglePlay = (beat: Beat) => {
+  const togglePlay = (beat: Beat, newPlaylist?: Beat[]) => {
     const audio = ensureAudio();
-    const isCurrent = currentBeatId === beat.id;
+    const isCurrent = currentBeat?.id === beat.id;
+
+    if (newPlaylist) setPlaylist(newPlaylist);
 
     if (isCurrent && isPlaying) {
       audio.pause();
@@ -77,12 +79,12 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     if (!beat.vocalsUrl) return;
     const newVocals = !withVocals;
     const audio = ensureAudio();
-    const wasPlaying = currentBeatId === beat.id && isPlaying;
+    const wasPlaying = currentBeat?.id === beat.id && isPlaying;
     const savedTime = audio.currentTime;
 
     audio.src = newVocals ? beat.vocalsUrl : beat.previewUrl;
     setWithVocals(newVocals);
-    setCurrentBeatId(beat.id);
+    setCurrentBeat(beat);
 
     if (wasPlaying) {
       audio.load();
@@ -100,16 +102,16 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
   };
 
   const playNext = () => {
-    if (!currentBeatId) return;
-    const idx = allBeats.findIndex((b) => b.id === currentBeatId);
-    const next = allBeats[(idx + 1) % allBeats.length];
+    if (!currentBeat || playlist.length === 0) return;
+    const idx = playlist.findIndex((b) => b.id === currentBeat.id);
+    const next = playlist[(idx + 1) % playlist.length];
     if (next) playBeat(next, false);
   };
 
   const playPrev = () => {
-    if (!currentBeatId) return;
-    const idx = allBeats.findIndex((b) => b.id === currentBeatId);
-    const prev = allBeats[(idx - 1 + allBeats.length) % allBeats.length];
+    if (!currentBeat || playlist.length === 0) return;
+    const idx = playlist.findIndex((b) => b.id === currentBeat.id);
+    const prev = playlist[(idx - 1 + playlist.length) % playlist.length];
     if (prev) playBeat(prev, false);
   };
 
@@ -120,7 +122,7 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
       audio.currentTime = 0;
     }
     setIsPlaying(false);
-    setCurrentBeatId(null);
+    setCurrentBeat(null);
     setCurrentTime(0);
     setDuration(0);
     setWithVocals(false);

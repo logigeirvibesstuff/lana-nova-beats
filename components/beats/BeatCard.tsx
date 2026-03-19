@@ -8,9 +8,10 @@ import type { Beat } from "@/types/beat";
 
 interface BeatCardProps {
   beat: Beat;
+  playlist?: Beat[];
 }
 
-export function BeatCard({ beat }: BeatCardProps) {
+export function BeatCard({ beat, playlist }: BeatCardProps) {
   const { currentBeatId, isPlaying, withVocals, togglePlay, toggleVocals } = useAudioPlayer();
   const isThisPlaying = currentBeatId === beat.id && isPlaying;
   const isThisVocals = currentBeatId === beat.id && withVocals;
@@ -31,7 +32,7 @@ export function BeatCard({ beat }: BeatCardProps) {
 
       {/* Centered play button */}
       <button
-        onClick={() => togglePlay(beat)}
+        onClick={() => togglePlay(beat, playlist)}
         className="absolute inset-0 flex items-center justify-center group z-10"
         aria-label={isThisPlaying ? "Pause" : "Play preview"}
       >
