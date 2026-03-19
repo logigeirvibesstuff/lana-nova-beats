@@ -92,9 +92,9 @@ export default function CheckoutPage() {
           <aside className="card-surface flex flex-col gap-5 p-5 text-sm">
             <div className="space-y-2">
               {discountEligible && (
-                <div className="flex items-center justify-between rounded-lg bg-orange-500/10 border border-orange-500/20 px-3 py-2">
-                  <span className="text-xs font-semibold text-orange-400 uppercase tracking-wide">50% First Purchase Discount</span>
-                  <span className="text-xs font-bold text-orange-400">-{formatMoney(subtotal * 0.5)}</span>
+                <div className="flex items-center justify-between rounded-lg bg-purple-500/10 border border-purple-500/20 px-3 py-2">
+                  <span className="text-xs font-semibold text-purple-400 uppercase tracking-wide">50% First Purchase Discount</span>
+                  <span className="text-xs font-bold text-purple-400">-{formatMoney(subtotal * 0.5)}</span>
                 </div>
               )}
               <div className="flex items-center justify-between">

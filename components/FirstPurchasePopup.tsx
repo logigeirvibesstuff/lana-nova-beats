@@ -49,7 +49,7 @@ export function FirstPurchasePopup() {
         </button>
 
         {/* Badge */}
-        <div className="inline-block mb-4 rounded-full bg-orange-500/10 border border-orange-500/30 px-4 py-1 text-xs font-bold uppercase tracking-widest text-orange-400">
+        <div className="inline-block mb-4 rounded-full bg-purple-500/10 border border-purple-500/30 px-4 py-1 text-xs font-bold uppercase tracking-widest text-purple-400">
           Limited Time
         </div>
 
@@ -57,7 +57,7 @@ export function FirstPurchasePopup() {
         <h2 className="mb-2 text-4xl font-black uppercase tracking-tight text-white leading-none">
           GET 50% OFF
         </h2>
-        <p className="mb-1 text-lg font-semibold text-orange-400 uppercase tracking-wide">
+        <p className="mb-1 text-lg font-semibold text-purple-400 uppercase tracking-wide">
           Your First Purchase
         </p>
         <p className="mb-6 text-sm text-gray-500">
@@ -67,8 +67,8 @@ export function FirstPurchasePopup() {
         {/* CTA */}
         <button
           onClick={handleClaim}
-          className="w-full rounded-xl py-3 text-sm font-black uppercase tracking-widest text-black transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/30 active:translate-y-0"
-          style={{ background: "linear-gradient(135deg, #f97316 0%, #fb923c 100%)" }}
+          className="w-full rounded-xl py-3 text-sm font-black uppercase tracking-widest text-white transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-purple-500/30 active:translate-y-0"
+          style={{ background: "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)" }}
         >
           Claim My 50% Off
         </button>
