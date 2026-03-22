@@ -47,13 +47,14 @@ export default function HomePage() {
             </div>
           </div>
           <div className="md:w-2/5 flex gap-3">
-            <Link href="/beats" className="flex-1 card-surface relative overflow-hidden p-4 no-underline">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(249,115,22,0.35),_transparent_60%),radial-gradient(circle_at_bottom,_rgba(124,44,255,0.25),_transparent_55%)]" />
-              <div className="relative space-y-2 flex flex-col h-full justify-center">
-                <p className="text-[0.6rem] uppercase tracking-[0.2em] text-orange-400 font-semibold">🔥 Limited offer</p>
-                <p className="text-white font-black text-2xl leading-tight">Buy 2<br />Get 1<br />Free</p>
-                <p className="text-xs text-gray-400">Cheapest beat free. No code needed.</p>
-                <span className="mt-1 inline-block bg-lana-accent text-white text-[0.6rem] font-bold px-3 py-1 rounded-full w-fit">Shop now →</span>
+            <Link href="/beats" className="flex-1 relative overflow-hidden rounded-2xl min-h-[160px] no-underline" style={{background: "linear-gradient(135deg, #ffe0c3 0%, #f5d0fe 50%, #c4b5fd 100%)"}}>
+              <div className="relative h-full flex flex-col justify-between p-5">
+                <p className="text-[0.6rem] uppercase tracking-[0.2em] text-purple-700 font-bold">🔥 Limited offer</p>
+                <p className="font-black leading-none text-purple-900" style={{fontSize: "2.6rem", fontFamily: "bebas neue, bebas, impact, sans-serif", letterSpacing: "-0.5px"}}>Buy 2<br />Get 1<br />Free</p>
+                <div>
+                  <p className="text-xs text-purple-800 font-medium mb-3">On all licenses. Cheapest beat free. No code needed.</p>
+                  <span className="inline-block bg-orange-500 hover:bg-orange-400 text-white text-xs font-bold px-4 py-2 rounded-full">Shop now →</span>
+                </div>
               </div>
             </Link>
             <a href="/account" className="flex-1 relative overflow-hidden rounded-2xl min-h-[160px]">
