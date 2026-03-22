@@ -62,18 +62,30 @@ export async function POST(req: Request) {
     }));
   }
 
-  // Apply promo discount (Buy 2 Get 1 Free) — reduce cheapest item server-side
+  // Apply promo discount server-side
   if (body.promoDiscount && body.promoDiscount > 0) {
-    const sorted = [...finalItems].sort((a, b) => a.amount - b.amount);
-    let remaining = parseFloat(body.promoDiscount.toFixed(2));
-    finalItems = finalItems.map((item) => {
-      if (item === sorted[0] && remaining > 0) {
-        const newAmount = parseFloat(Math.max(0, item.amount - remaining).toFixed(2));
-        remaining = 0;
-        return { ...item, amount: newAmount, unitAmount: newAmount, name: `${item.name} (Free)` };
-      }
-      return item;
-    });
+    const isFirstBuy = body.promoDiscount / finalItems.reduce((s, i) => s + i.amount, 0) > 0.4;
+    if (isFirstBuy) {
+      // FIRSTBUY — 50% off all items
+      finalItems = finalItems.map((item) => ({
+        ...item,
+        amount: parseFloat((item.amount * 0.5).toFixed(2)),
+        unitAmount: parseFloat((item.unitAmount * 0.5).toFixed(2)),
+        name: `${item.name} (50% off)`,
+      }));
+    } else {
+      // BUY2GET1 — cheapest item free
+      const sorted = [...finalItems].sort((a, b) => a.amount - b.amount);
+      let remaining = parseFloat(body.promoDiscount.toFixed(2));
+      finalItems = finalItems.map((item) => {
+        if (item === sorted[0] && remaining > 0) {
+          const newAmount = parseFloat(Math.max(0, item.amount - remaining).toFixed(2));
+          remaining = 0;
+          return { ...item, amount: newAmount, unitAmount: newAmount, name: `${item.name} (Free)` };
+        }
+        return item;
+      });
+    }
   }
 
   try {
