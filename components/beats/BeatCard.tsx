@@ -25,17 +25,19 @@ export function BeatCard({ beat, playlist }: BeatCardProps) {
           backgroundImage: `url('${beat.coverImage}')`,
           backgroundSize: "cover",
           backgroundPosition: "center top",
-          filter: "saturate(0.6) contrast(1.3) brightness(0.85) sepia(0.2) blur(0.6px)",
+          filter: "saturate(0.7) contrast(1.15) brightness(1.05) sepia(0.1) blur(0.6px)",
         }}
       />
       {/* Chromatic aberration — red channel shift */}
       <div className="absolute inset-10 rounded-xl" style={{ backgroundImage: `url('${beat.coverImage}')`, backgroundSize: "cover", backgroundPosition: "center top", filter: "saturate(0) contrast(1.2)", mixBlendMode: "screen", opacity: 0.15, transform: "translateX(3px)", }} />
       {/* Scanlines */}
       <div className="absolute inset-10 rounded-xl" style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.18) 2px, rgba(0,0,0,0.18) 4px)", }} />
-      {/* VHS color bleed — teal/magenta */}
-      <div className="absolute inset-10 rounded-xl" style={{ background: "linear-gradient(180deg, rgba(0,255,200,0.04) 0%, rgba(255,0,100,0.06) 100%)", mixBlendMode: "screen", }} />
-      {/* Vignette */}
-      <div className="absolute inset-10 rounded-xl" style={{ background: "radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.75) 100%)", }} />
+      {/* Purple tint */}
+      <div className="absolute inset-10 rounded-xl" style={{ background: "rgba(100,0,200,0.28)", mixBlendMode: "screen" }} />
+      {/* VHS color bleed */}
+      <div className="absolute inset-10 rounded-xl" style={{ background: "linear-gradient(180deg, rgba(120,0,255,0.12) 0%, rgba(255,0,150,0.08) 100%)", mixBlendMode: "screen" }} />
+      {/* Vignette — lighter */}
+      <div className="absolute inset-10 rounded-xl" style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(30,0,60,0.65) 100%)" }} />
 
       {/* Centered play button */}
       <button
