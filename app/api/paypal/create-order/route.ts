@@ -14,7 +14,7 @@ interface IncomingItem {
 const FIRST_PURCHASE_DISCOUNT = 0.5; // 50% off
 
 export async function POST(req: Request) {
-  const body = (await req.json()) as { items?: IncomingItem[]; applyFirstDiscount?: boolean };
+  const body = (await req.json()) as { items?: IncomingItem[]; applyFirstDiscount?: boolean; promoDiscount?: number };
 
   if (!body.items || !Array.isArray(body.items) || body.items.length === 0 || body.items.length > 20) {
     return NextResponse.json({ error: "Cart is empty or invalid." }, { status: 400 });
@@ -60,6 +60,20 @@ export async function POST(req: Request) {
       unitAmount: parseFloat((item.unitAmount * (1 - FIRST_PURCHASE_DISCOUNT)).toFixed(2)),
       name: `${item.name} (50% off)`,
     }));
+  }
+
+  // Apply promo discount (Buy 2 Get 1 Free) — reduce cheapest item server-side
+  if (body.promoDiscount && body.promoDiscount > 0) {
+    const sorted = [...finalItems].sort((a, b) => a.amount - b.amount);
+    let remaining = parseFloat(body.promoDiscount.toFixed(2));
+    finalItems = finalItems.map((item) => {
+      if (item === sorted[0] && remaining > 0) {
+        const newAmount = parseFloat(Math.max(0, item.amount - remaining).toFixed(2));
+        remaining = 0;
+        return { ...item, amount: newAmount, unitAmount: newAmount, name: `${item.name} (Free)` };
+      }
+      return item;
+    });
   }
 
   try {

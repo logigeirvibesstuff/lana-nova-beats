@@ -17,7 +17,7 @@ const PayPalButtons = dynamic(
 const DISCOUNT_KEY = "ug_first_discount";
 
 export default function CheckoutPage() {
-  const { items, subtotal, currency, clearCart } = useCart();
+  const { items, subtotal, discount, total, currency, clearCart } = useCart();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [discountEligible, setDiscountEligible] = useState(false);
@@ -40,7 +40,8 @@ export default function CheckoutPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const discountedSubtotal = discountEligible ? subtotal * 0.5 : subtotal;
+  const firstDiscount = discountEligible ? subtotal * 0.5 : 0;
+  const discountedSubtotal = subtotal - firstDiscount - discount;
 
   return (
     <PayPalScriptProvider
@@ -94,14 +95,18 @@ export default function CheckoutPage() {
               {discountEligible && (
                 <div className="flex items-center justify-between rounded-lg bg-purple-500/10 border border-purple-500/20 px-3 py-2">
                   <span className="text-xs font-semibold text-purple-400 uppercase tracking-wide">50% First Purchase Discount</span>
-                  <span className="text-xs font-bold text-purple-400">-{formatMoney(subtotal * 0.5)}</span>
+                  <span className="text-xs font-bold text-purple-400">-{formatMoney(firstDiscount)}</span>
+                </div>
+              )}
+              {discount > 0 && (
+                <div className="flex items-center justify-between rounded-lg bg-green-500/10 border border-green-500/20 px-3 py-2">
+                  <span className="text-xs font-semibold text-green-400 uppercase tracking-wide">Buy 2 Get 1 Free</span>
+                  <span className="text-xs font-bold text-green-400">-{formatMoney(discount)}</span>
                 </div>
               )}
               <div className="flex items-center justify-between">
                 <span className="text-gray-300">Total</span>
-                <span className="font-semibold text-white">
-                  {formatMoney(discountedSubtotal)}
-                </span>
+                <span className="font-semibold text-white">{formatMoney(discountedSubtotal)}</span>
               </div>
             </div>
 
@@ -125,6 +130,7 @@ export default function CheckoutPage() {
                       quantity: item.quantity,
                     })),
                     applyFirstDiscount: discountEligible,
+                    promoDiscount: discount,
                   }),
                 });
                 const data = await res.json();
