@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { useAudioPlayer } from "@/context/AudioPlayerContext";
-import type { Beat } from "@/types/beat";
+import { useCart } from "@/context/CartContext";
+import { licenseTiers } from "@/data/licenses";
+import type { Beat, LicenseTierId } from "@/types/beat";
 
 interface BeatCardProps {
   beat: Beat;
@@ -13,8 +16,28 @@ interface BeatCardProps {
 
 export function BeatCard({ beat, playlist }: BeatCardProps) {
   const { currentBeatId, isPlaying, withVocals, togglePlay, toggleVocals } = useAudioPlayer();
+  const { addItem } = useCart();
   const isThisPlaying = currentBeatId === beat.id && isPlaying;
   const isThisVocals = currentBeatId === beat.id && withVocals;
+  const [showLicenses, setShowLicenses] = useState(false);
+  const [addedId, setAddedId] = useState<string | null>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {
+        setShowLicenses(false);
+      }
+    }
+    if (showLicenses) document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [showLicenses]);
+
+  function handleAddToCart(licenseId: LicenseTierId) {
+    addItem(beat, licenseId);
+    setAddedId(licenseId);
+    setTimeout(() => { setAddedId(null); setShowLicenses(false); }, 900);
+  }
 
   return (
     <article className="relative aspect-square overflow-hidden rounded-2xl bg-black">
@@ -64,18 +87,57 @@ export function BeatCard({ beat, playlist }: BeatCardProps) {
             <h3 className="text-sm font-semibold text-white line-clamp-1">{beat.title}</h3>
             <p className="mt-0.5 text-xs text-gray-300 line-clamp-1">{beat.genre}</p>
           </div>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* Quick add to cart */}
+            <div className="relative pointer-events-auto z-30" ref={popoverRef}>
+              <button
+                onClick={(e) => { e.stopPropagation(); setShowLicenses((v) => !v); }}
+                className="group flex items-center justify-center w-7 h-7 rounded-full bg-white/10 hover:bg-lana-purple border border-white/20 hover:border-lana-purple transition-all hover:scale-110"
+                aria-label="Add to cart"
+              >
+                <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                </svg>
+                <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-lana-accent flex items-center justify-center">
+                  <svg className="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                </span>
+              </button>
+
+              {showLicenses && (
+                <div className="absolute top-9 right-0 w-52 bg-zinc-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
+                  <p className="text-[0.6rem] uppercase tracking-widest text-gray-500 px-3 pt-3 pb-1">Choose license</p>
+                  {licenseTiers.map((license) => (
+                    <button
+                      key={license.id}
+                      onClick={(e) => { e.stopPropagation(); handleAddToCart(license.id as LicenseTierId); }}
+                      className={`w-full flex items-center justify-between px-3 py-2 text-left transition-colors hover:bg-white/5 ${addedId === license.id ? "bg-lana-purple/30" : ""}`}
+                    >
+                      <div>
+                        <p className="text-xs font-medium text-white">{license.name}</p>
+                        <p className="text-[0.6rem] text-gray-500">{license.files}</p>
+                      </div>
+                      <span className={`text-xs font-bold ${addedId === license.id ? "text-green-400" : "text-lana-accent"}`}>
+                        {addedId === license.id ? "✓ Added" : `$${license.price}`}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
           {beat.vocalsUrl && (
-            <button
-              onClick={(e) => { e.stopPropagation(); toggleVocals(beat); }}
-              className={`text-[0.6rem] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full border transition-colors shrink-0 pointer-events-auto z-20 relative ${
-                isThisVocals
-                  ? "bg-white text-black border-white"
-                  : "bg-transparent text-white border-white/60 hover:border-white"
-              }`}
-            >
-              VOCALS
-            </button>
-          )}
+              <button
+                onClick={(e) => { e.stopPropagation(); toggleVocals(beat); }}
+                className={`text-[0.6rem] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full border transition-colors shrink-0 pointer-events-auto z-20 relative ${
+                  isThisVocals
+                    ? "bg-white text-black border-white"
+                    : "bg-transparent text-white border-white/60 hover:border-white"
+                }`}
+              >
+                VOCALS
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Bottom */}
