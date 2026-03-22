@@ -6,6 +6,13 @@ import Link from "next/link";
 const slides = [
   {
     bg: "/beat-bg.webp",
+    label: "🔥 Limited time offer",
+    heading: "Buy 2 Get 1 Free.",
+    sub: "Add any 3 beats to your cart — the cheapest one is on us. No code needed.",
+    cta: { text: "Shop now", href: "/beats" },
+  },
+  {
+    bg: "/beat-bg.webp",
     label: "New drop",
     heading: "Dark. Moody. Cinematic.",
     sub: "Trap & R&B beats built for serious artists.",

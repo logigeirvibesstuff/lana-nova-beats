@@ -47,18 +47,15 @@ export default function HomePage() {
             </div>
           </div>
           <div className="md:w-2/5 flex gap-3">
-            <div className="flex-1 card-surface relative overflow-hidden p-4">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(249,115,22,0.22),_transparent_60%),radial-gradient(circle_at_bottom,_rgba(124,44,255,0.18),_transparent_55%)]" />
-              <div className="relative space-y-3">
-                <p className="text-xs uppercase tracking-[0.2em] text-gray-800">Sonic signature</p>
-                <p className="text-xs text-gray-700">
-                  Dark, moody, and melodic trap and R&B beats with lush textures and punchy low-end, tailored for modern vocal production.
-                </p>
-                <p className="text-xs text-gray-700">
-                  Perfect for artists who want a cinematic, emotional sound without sacrificing knock.
-                </p>
+            <Link href="/beats" className="flex-1 card-surface relative overflow-hidden p-4 no-underline">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(249,115,22,0.35),_transparent_60%),radial-gradient(circle_at_bottom,_rgba(124,44,255,0.25),_transparent_55%)]" />
+              <div className="relative space-y-2 flex flex-col h-full justify-center">
+                <p className="text-[0.6rem] uppercase tracking-[0.2em] text-orange-400 font-semibold">🔥 Limited offer</p>
+                <p className="text-white font-black text-2xl leading-tight">Buy 2<br />Get 1<br />Free</p>
+                <p className="text-xs text-gray-400">Cheapest beat free. No code needed.</p>
+                <span className="mt-1 inline-block bg-lana-accent text-white text-[0.6rem] font-bold px-3 py-1 rounded-full w-fit">Shop now →</span>
               </div>
-            </div>
+            </Link>
             <a href="/account" className="flex-1 relative overflow-hidden rounded-2xl min-h-[160px]">
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/affiliate-bg.jpg')" }} />
               <div className="absolute inset-0 bg-black/55" />
