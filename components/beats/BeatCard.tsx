@@ -24,15 +24,11 @@ export function BeatCard({ beat, playlist }: BeatCardProps) {
           backgroundImage: `url('${beat.coverImage}')`,
           backgroundSize: "cover",
           backgroundPosition: "center top",
-          filter: "saturate(0.8) contrast(1.2) brightness(0.7) sepia(0.25)"
+          filter: "saturate(1.4) contrast(1.1) brightness(0.95)"
         }}
       />
-      {/* Heavy purple/orange duotone */}
-      <div className="absolute inset-10 rounded-xl" style={{ background: "linear-gradient(160deg, rgba(200,80,0,0.35) 0%, rgba(80,0,180,0.45) 100%)", mixBlendMode: "color" }} />
-      {/* Strong vignette */}
-      <div className="absolute inset-10 rounded-xl" style={{ background: "radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.85) 100%)" }} />
-      {/* Top dark fade */}
-      <div className="absolute inset-10 rounded-xl" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 40%, rgba(0,0,0,0.6) 100%)" }} />
+      {/* 90s grain overlay */}
+      <div className="absolute inset-10 rounded-xl" style={{ background: "linear-gradient(135deg, rgba(255,100,0,0.1) 0%, rgba(0,80,255,0.08) 100%)", mixBlendMode: "screen" }} />
 
       {/* Centered play button */}
       <button
