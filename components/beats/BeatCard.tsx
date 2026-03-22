@@ -24,15 +24,15 @@ export function BeatCard({ beat, playlist }: BeatCardProps) {
           backgroundImage: `url('${beat.coverImage}')`,
           backgroundSize: "cover",
           backgroundPosition: "center top",
-          filter: "saturate(1.3) contrast(1.15) brightness(0.85) blur(0.3px)"
+          filter: "saturate(0.8) contrast(1.2) brightness(0.7) sepia(0.25)"
         }}
       />
-      {/* Color grade — orange/purple cinematic tint */}
-      <div className="absolute inset-10 rounded-xl" style={{ background: "linear-gradient(160deg, rgba(180,60,0,0.18) 0%, rgba(60,0,120,0.22) 100%)", mixBlendMode: "multiply" }} />
-      {/* Vignette */}
-      <div className="absolute inset-10 rounded-xl" style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)" }} />
-      {/* Film grain */}
-      <div className="absolute inset-10 rounded-xl" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E\")", opacity: 0.35, mixBlendMode: "overlay" }} />
+      {/* Heavy purple/orange duotone */}
+      <div className="absolute inset-10 rounded-xl" style={{ background: "linear-gradient(160deg, rgba(200,80,0,0.35) 0%, rgba(80,0,180,0.45) 100%)", mixBlendMode: "color" }} />
+      {/* Strong vignette */}
+      <div className="absolute inset-10 rounded-xl" style={{ background: "radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.85) 100%)" }} />
+      {/* Top dark fade */}
+      <div className="absolute inset-10 rounded-xl" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 40%, rgba(0,0,0,0.6) 100%)" }} />
 
       {/* Centered play button */}
       <button
