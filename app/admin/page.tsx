@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { AdminBeatForm } from "./AdminBeatForm";
+import { BeatLinkEditor } from "./BeatLinkEditor";
 
 export default async function AdminPage() {
   const { userId } = await auth();
@@ -10,12 +11,13 @@ export default async function AdminPage() {
     redirect("/");
   }
 
-  const [orders, itemStats] = await Promise.all([
+  const [orders, itemStats, allBeats] = await Promise.all([
     db.order.findMany({
       orderBy: { createdAt: "desc" },
       take: 100,
       include: { items: true },
     }),
+    db.beat.findMany({ select: { id: true, title: true, slug: true, downloadUrls: true }, orderBy: { createdAt: "desc" } }),
     db.orderItem.groupBy({
       by: ["beatId", "licenseId"],
       _count: { id: true },
@@ -135,6 +137,13 @@ export default async function AdminPage() {
           </div>
         </div>
       )}
+
+      {/* Beat Link Editor */}
+      <div className="space-y-3 border-t border-black/10 pt-8">
+        <h2 className="text-base font-semibold text-gray-900">Edit Download Links</h2>
+        <p className="text-xs text-gray-500">Click a beat to expand and edit its Google Drive links per license.</p>
+        <BeatLinkEditor beats={allBeats as any} />
+      </div>
 
       {/* Add Beat */}
       <div className="space-y-3 border-t border-black/10 pt-8">
