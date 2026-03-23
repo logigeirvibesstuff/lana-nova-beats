@@ -6,6 +6,7 @@ import Link from "next/link";
 const slides = [
   {
     bg: "/beat-bg.webp",
+    pan: "up",
     label: "🔥 Limited time offer",
     heading: "Buy 2 Get 1 Free.",
     sub: "Add any 3 beats to your cart — the cheapest one is on us. No code needed.",
@@ -13,6 +14,7 @@ const slides = [
   },
   {
     bg: "/affiliate-bg.jpg",
+    pan: "down",
     label: "Affiliate program",
     heading: "Get paid to share.",
     sub: "Earn 50% commission on every sale through your link.",
@@ -20,6 +22,7 @@ const slides = [
   },
   {
     bg: "/banner-2.webp",
+    pan: "up",
     label: "Drake type beats",
     heading: "Industry-ready sound.",
     sub: "Clean mixes. Flexible licenses. Instant delivery.",
@@ -27,6 +30,7 @@ const slides = [
   },
   {
     bg: "/banner-3.jpg",
+    pan: "down",
     label: "Licensing",
     heading: "Own your music fully.",
     sub: "Exclusive rights available. Artist-friendly terms.",
@@ -34,6 +38,7 @@ const slides = [
   },
   {
     bg: "/beat-bg.webp",
+    pan: "up",
     label: "For producers",
     heading: "Want your own beat-selling website like this?",
     sub: "We build custom beat stores. Contact us at loyiibeats@gmail.com",
@@ -62,7 +67,7 @@ export function HeroBanner() {
     <div className="relative w-full h-44 sm:h-52 overflow-hidden rounded-2xl mb-8">
       {/* Background */}
       <div
-        className="absolute inset-0 bg-cover bg-center transition-opacity duration-500"
+        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-500 ${slide.pan === "up" ? "animate-pan-up" : "animate-pan-down"}`}
         style={{ backgroundImage: `url('${slide.bg}')`, opacity: fading ? 0 : 1 }}
       />
       <div className="absolute inset-0 bg-black/60" />

@@ -50,3 +50,18 @@ body {
   animation: marquee 20s linear infinite;
 }
 
+@keyframes pan-up {
+  0% { transform: scale(1.08) translateY(0%); }
+  100% { transform: scale(1.08) translateY(-4%); }
+}
+@keyframes pan-down {
+  0% { transform: scale(1.08) translateY(-4%); }
+  100% { transform: scale(1.08) translateY(0%); }
+}
+.animate-pan-up {
+  animation: pan-up 8s ease-in-out infinite alternate;
+}
+.animate-pan-down {
+  animation: pan-down 8s ease-in-out infinite alternate;
+}
+
