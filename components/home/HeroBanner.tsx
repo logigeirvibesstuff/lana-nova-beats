@@ -23,6 +23,7 @@ const slides = [
   },
   {
     bg: "/banner-2.webp",
+    video: "/dancin.mp4",
     pan: "up",
     label: "Drake type beats",
     heading: "Industry-ready sound.",
