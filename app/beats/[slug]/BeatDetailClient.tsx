@@ -29,7 +29,7 @@ export function BeatDetailClient({ beat }: BeatDetailClientProps) {
       <section className="flex flex-col gap-8 md:flex-row">
         <div className="md:w-1/2">
           <div
-            className="relative aspect-square overflow-hidden rounded-2xl"
+            className="relative h-72 sm:aspect-square sm:h-auto overflow-hidden rounded-2xl bg-gray-900"
             style={{ backgroundImage: `url('${beat.coverImage}')`, backgroundSize: "cover", backgroundPosition: "center top" }}
           >
             <div className="absolute inset-0 bg-black/50" />

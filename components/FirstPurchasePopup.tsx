@@ -34,8 +34,8 @@ export function FirstPurchasePopup() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={handleDismiss} />
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 overflow-y-auto">
+      <div className="absolute inset-0 bg-black/80" onClick={handleDismiss} />
 
       <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0d0d0d] p-8 text-center shadow-2xl">
         <button
