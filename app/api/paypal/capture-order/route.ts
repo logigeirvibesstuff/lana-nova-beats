@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { capturePayPalOrder } from "@/lib/paypal";
 import { db } from "@/lib/db";
-import { beats } from "@/data/beats";
+import { beats as staticBeats } from "@/data/beats";
 import { licenseTiers } from "@/data/licenses";
 
 interface CartItem {
@@ -21,17 +21,23 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  // Verify items — fall back gracefully if beat/license not found in static data
+  // Look up any beats not in static file from the DB
+  const beatIds = items.map((i) => i.beatId);
+  const missingIds = beatIds.filter((id) => !staticBeats.find((b) => b.id === id));
+  const dbBeats = missingIds.length > 0
+    ? await db.beat.findMany({ where: { id: { in: missingIds } } })
+    : [];
+
   const verifiedItems = items.map((item) => {
-    const beat = beats.find((b) => b.id === item.beatId);
+    const beat = staticBeats.find((b) => b.id === item.beatId)
+      ?? dbBeats.find((b) => b.id === item.beatId) as any;
     const license = licenseTiers.find((l) => l.id === item.licenseId);
+    const urls = beat?.downloadUrls as Record<string, string> | null | undefined;
     return {
       beatId: item.beatId,
       licenseId: item.licenseId,
       unitAmount: license?.price ?? item.unitAmount,
-      downloadUrl: beat?.downloadUrls?.[item.licenseId as keyof typeof beat.downloadUrls]
-        ?? beat?.downloadUrl
-        ?? null,
+      downloadUrl: urls?.[item.licenseId] ?? beat?.downloadUrl ?? null,
     };
   });
 

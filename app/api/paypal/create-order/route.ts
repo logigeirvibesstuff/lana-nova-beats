@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { beats } from "@/data/beats";
+import { beats as staticBeats } from "@/data/beats";
 import { licenseTiers } from "@/data/licenses";
 import { createPayPalOrder } from "@/lib/paypal";
+import { db } from "@/lib/db";
 import type { LicenseTierId } from "@/types/beat";
 
 interface IncomingItem {
@@ -17,32 +18,35 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Cart is empty or invalid." }, { status: 400 });
   }
 
-  const validatedItems = body.items
-    .map((item) => {
-      const beat = beats.find((b) => b.id === item.beatId);
-      const license = licenseTiers.find((l) => l.id === item.licenseTierId);
-      if (!beat || !license) return null;
-      return {
-        beatId: beat.id,
-        licenseId: license.id,
-        name: `${beat.title} – ${license.name}`,
-        unitAmount: license.price,
-      };
-    })
-    .filter(Boolean) as { beatId: string; licenseId: string; name: string; unitAmount: number }[];
+  // Look up any beats not in static file from the DB
+  const beatIds = body.items.map((i) => i.beatId);
+  const missingIds = beatIds.filter((id) => !staticBeats.find((b) => b.id === id));
+  const dbBeats = missingIds.length > 0
+    ? await db.beat.findMany({ where: { id: { in: missingIds } } })
+    : [];
+
+  const validatedItems = body.items.map((item) => {
+    const beat = staticBeats.find((b) => b.id === item.beatId)
+      ?? dbBeats.find((b) => b.id === item.beatId) as any;
+    const license = licenseTiers.find((l) => l.id === item.licenseTierId);
+    if (!beat || !license) return null;
+    return {
+      beatId: beat.id,
+      licenseId: license.id,
+      name: `${beat.title} – ${license.name}`,
+      unitAmount: license.price,
+    };
+  }).filter(Boolean) as { beatId: string; licenseId: string; name: string; unitAmount: number }[];
 
   if (!validatedItems.length) {
     return NextResponse.json({ error: "No valid items in cart." }, { status: 400 });
   }
 
   const subtotal = validatedItems.reduce((s, i) => s + i.unitAmount, 0);
-
-  // Use the cart total passed from the client, clamped to be between $1 and subtotal
   const cartTotal = typeof body.cartTotal === "number"
     ? Math.min(Math.max(body.cartTotal, 1), subtotal)
     : subtotal;
 
-  // Distribute the total proportionally across items, fixing rounding on the last item
   let distributed = 0;
   const finalItems = validatedItems.map((item, i) => {
     const isLast = i === validatedItems.length - 1;
