@@ -129,8 +129,7 @@ export default function CheckoutPage() {
                       licenseTierId: item.licenseTierId,
                       quantity: item.quantity,
                     })),
-                    applyFirstDiscount: discountEligible,
-                    promoDiscount: discount,
+                    cartTotal: total,
                   }),
                 });
                 const data = await res.json();
