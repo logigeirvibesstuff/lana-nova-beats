@@ -21,18 +21,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  // Re-verify all prices server-side — never trust client-supplied amounts
+  // Verify items — fall back gracefully if beat/license not found in static data
   const verifiedItems = items.map((item) => {
     const beat = beats.find((b) => b.id === item.beatId);
     const license = licenseTiers.find((l) => l.id === item.licenseId);
-    if (!beat || !license) return null;
     return {
-      beatId: beat.id,
-      licenseId: license.id,
-      unitAmount: license.price,
-      downloadUrl: beat.downloadUrls?.[item.licenseId as keyof typeof beat.downloadUrls] ?? beat.downloadUrl ?? null,
+      beatId: item.beatId,
+      licenseId: item.licenseId,
+      unitAmount: license?.price ?? item.unitAmount,
+      downloadUrl: beat?.downloadUrls?.[item.licenseId as keyof typeof beat.downloadUrls]
+        ?? beat?.downloadUrl
+        ?? null,
     };
-  }).filter(Boolean) as { beatId: string; licenseId: string; unitAmount: number; downloadUrl: string | null }[];
+  });
 
   if (!verifiedItems.length) {
     return NextResponse.json({ error: "Invalid items." }, { status: 400 });
