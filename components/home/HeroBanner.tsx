@@ -32,6 +32,7 @@ const slides = [
   },
   {
     bg: "/banner-3.jpg",
+    video: "/piano-ting.mp4",
     pan: "down",
     label: "Licensing",
     heading: "Own your music fully.",
