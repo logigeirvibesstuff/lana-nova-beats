@@ -61,25 +61,28 @@ export default function CartPage() {
           {/* Promo code */}
           <div className="card-surface p-4 space-y-3">
             <p className="text-xs uppercase tracking-[0.15em] text-gray-700 font-medium">Promo code</p>
-            {promoDescription ? (
+            {promoCode ? (
               <div className="flex items-center justify-between">
                 <span className="text-green-600 text-sm font-semibold">✓ {promoDescription}</span>
-                {promoCode && (
-                  <button onClick={removePromo} className="text-xs text-gray-400 hover:text-red-500 transition-colors">Remove</button>
-                )}
+                <button onClick={removePromo} className="text-xs text-gray-400 hover:text-red-500 transition-colors">Remove</button>
               </div>
             ) : (
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={codeInput}
-                  onChange={(e) => setCodeInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && applyPromo(codeInput)}
-                  placeholder="e.g. BUY2GET1"
-                  className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-purple-400 transition-colors bg-white"
-                />
-                <Button size="sm" onClick={() => applyPromo(codeInput)}>Apply</Button>
-              </div>
+              <>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={codeInput}
+                    onChange={(e) => setCodeInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && applyPromo(codeInput)}
+                    placeholder="e.g. FIRSTBUY"
+                    className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-purple-400 transition-colors bg-white"
+                  />
+                  <Button size="sm" onClick={() => applyPromo(codeInput)}>Apply</Button>
+                </div>
+                {promoDescription && (
+                  <p className="text-green-600 text-xs font-semibold">✓ {promoDescription}</p>
+                )}
+              </>
             )}
             {promoError && <p className="text-xs text-red-500">{promoError}</p>}
           </div>
