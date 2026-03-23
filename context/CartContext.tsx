@@ -108,21 +108,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const isAuto = hasThreeSameLicense(items);
   const promoActive = !!promoCode || isAuto;
+  const autoDiscount = isAuto ? getAutoDiscount(items) : 0;
   const discount = useMemo(() => {
-    if (promoCode === "FIRSTBUY") return subtotal * 0.5;
-    if (promoActive) return getAutoDiscount(items);
+    if (promoCode === "FIRSTBUY") return autoDiscount + (subtotal - autoDiscount) * 0.5;
+    if (promoCode === "BUY2GET1" || isAuto) return autoDiscount;
     return 0;
-  }, [items, promoCode, promoActive, subtotal]);
+  }, [items, promoCode, isAuto, autoDiscount, subtotal]);
   const total = subtotal - discount;
   const currency = items[0]?.currency ?? "usd";
 
-  const promoDescription = promoCode === "FIRSTBUY"
-    ? "50% Off — FIRSTBUY applied"
-    : promoActive
-      ? isAuto && !promoCode
+  const promoDescription = promoCode === "FIRSTBUY" && isAuto
+    ? "Buy 2 Get 1 Free + 50% Off — both applied"
+    : promoCode === "FIRSTBUY"
+      ? "50% Off — FIRSTBUY applied"
+      : isAuto
         ? "Buy 2 Get 1 Free — auto-applied"
-        : "Buy 2 Get 1 Free — BUY2GET1 applied"
-      : null;
+        : promoCode === "BUY2GET1"
+          ? "Buy 2 Get 1 Free — BUY2GET1 applied"
+          : null;
 
   return (
     <CartContext.Provider
