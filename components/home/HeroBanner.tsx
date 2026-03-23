@@ -15,6 +15,7 @@ const slides = [
   },
   {
     bg: "/affiliate-bg.jpg",
+    video: "/studio.mp4",
     pan: "down",
     label: "Affiliate program",
     heading: "Get paid to share.",
