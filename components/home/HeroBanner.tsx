@@ -66,10 +66,16 @@ export function HeroBanner() {
   return (
     <div className="relative w-full h-44 sm:h-52 overflow-hidden rounded-2xl mb-8">
       {/* Background */}
-      <div
-        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-500 ${slide.pan === "up" ? "animate-pan-up" : "animate-pan-down"}`}
-        style={{ backgroundImage: `url('${slide.bg}')`, opacity: fading ? 0 : 1 }}
-      />
+      <div className="absolute inset-0 transition-opacity duration-500" style={{ opacity: fading ? 0 : 1 }}>
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('${slide.bg}')`,
+            animation: `${slide.pan === "up" ? "pan-up" : "pan-down"} 10s ease-in-out infinite alternate`,
+            willChange: "transform",
+          }}
+        />
+      </div>
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Content */}
