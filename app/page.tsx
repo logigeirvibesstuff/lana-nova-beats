@@ -71,19 +71,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Scrolling promo banner */}
-      <div className="overflow-hidden bg-lana-purple py-3 -mx-4 sm:-mx-8 rounded-xl">
-        <div className="animate-marquee flex whitespace-nowrap">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <span key={i} className="inline-flex items-center gap-6 px-10 text-white font-bold text-sm tracking-widest uppercase">
-              🔥 Buy 2 Get 1 Free · On All Licenses · Use Code: BUY2GET1 · Cheapest Beat Free
-              <span className="text-orange-400">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
 
-      <section className="pt-0 pb-6 border-t border-black/10 border-dashed">
+<section className="pt-0 pb-6 border-t border-black/10 border-dashed">
         <div className="space-y-4">
           <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
             <div>

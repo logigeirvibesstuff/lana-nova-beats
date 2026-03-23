@@ -12,13 +12,6 @@ const slides = [
     cta: { text: "Shop now", href: "/beats" },
   },
   {
-    bg: "/beat-bg.webp",
-    label: "New drop",
-    heading: "Dark. Moody. Cinematic.",
-    sub: "Trap & R&B beats built for serious artists.",
-    cta: { text: "Browse beats", href: "/beats" },
-  },
-  {
     bg: "/affiliate-bg.jpg",
     label: "Affiliate program",
     heading: "Get paid to share.",
