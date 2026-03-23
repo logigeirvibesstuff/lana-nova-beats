@@ -11,7 +11,7 @@ export default async function AdminPage() {
     redirect("/");
   }
 
-  const [orders, itemStats, allBeats] = await Promise.all([
+  const [orders, allBeats, itemStats] = await Promise.all([
     db.order.findMany({
       orderBy: { createdAt: "desc" },
       take: 100,
