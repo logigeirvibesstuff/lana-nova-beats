@@ -97,12 +97,22 @@ export default function HomePage() {
             <h2 className="text-base font-semibold text-gray-900">Having trouble with something?</h2>
             <p className="text-sm text-gray-600">Our team will look at it immediately.</p>
           </div>
-          <a
-            href="mailto:loyiibeats@gmail.com"
-            className="text-sm font-medium text-purple-600 hover:text-purple-500 transition-colors"
-          >
-            loyiibeats@gmail.com
-          </a>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <a
+              href="mailto:loyiibeats@gmail.com"
+              className="text-sm font-medium text-purple-600 hover:text-purple-500 transition-colors"
+            >
+              loyiibeats@gmail.com
+            </a>
+            <a
+              href="https://instagram.com/unleashed_gems"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-purple-600 hover:text-purple-500 transition-colors"
+            >
+              IG: unleashed_gems
+            </a>
+          </div>
         </div>
       </section>
     </div>
