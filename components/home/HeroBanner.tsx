@@ -42,6 +42,7 @@ const slides = [
   },
   {
     bg: "/beat-bg.webp",
+    video: "/code.mp4",
     pan: "up",
     label: "For producers",
     heading: "Want your own beat-selling website like this?",
