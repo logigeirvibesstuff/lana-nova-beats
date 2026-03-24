@@ -74,7 +74,7 @@ export default function CartPage() {
                     value={codeInput}
                     onChange={(e) => setCodeInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && applyPromo(codeInput)}
-                    placeholder="e.g. FIRSTBUY"
+                    placeholder="Enter promo code"
                     className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-purple-400 transition-colors bg-white"
                   />
                   <Button size="sm" onClick={() => applyPromo(codeInput)}>Apply</Button>

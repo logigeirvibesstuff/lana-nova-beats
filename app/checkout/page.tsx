@@ -14,13 +14,10 @@ const PayPalButtons = dynamic(
   { ssr: false }
 );
 
-const DISCOUNT_KEY = "ug_first_discount";
-
 export default function CheckoutPage() {
   const { items, subtotal, discount, total, currency, clearCart } = useCart();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const [discountEligible, setDiscountEligible] = useState(false);
   const orderItemsRef = useRef<{ beatId: string; licenseId: string; unitAmount: number }[]>([]);
 
   const formatMoney = (amount: number) =>
@@ -35,13 +32,10 @@ export default function CheckoutPage() {
     if (!hasItems) {
       router.replace("/cart");
     }
-    const flag = localStorage.getItem(DISCOUNT_KEY);
-    setDiscountEligible(flag === "eligible");
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const firstDiscount = discountEligible ? subtotal * 0.5 : 0;
-  const discountedSubtotal = subtotal - firstDiscount - discount;
+  const discountedSubtotal = subtotal - discount;
 
   return (
     <PayPalScriptProvider
@@ -77,13 +71,8 @@ export default function CheckoutPage() {
                   </p>
                 </div>
                 <div className="text-right">
-                  {discountEligible && (
-                    <p className="text-xs text-gray-500 line-through">
-                      {formatMoney(item.unitAmount * item.quantity)}
-                    </p>
-                  )}
                   <p className="text-sm font-semibold">
-                    {formatMoney((discountEligible ? item.unitAmount * 0.5 : item.unitAmount) * item.quantity)}
+                    {formatMoney(item.unitAmount * item.quantity)}
                   </p>
                 </div>
               </div>
@@ -92,12 +81,6 @@ export default function CheckoutPage() {
 
           <aside className="card-surface flex flex-col gap-5 p-5 text-sm">
             <div className="space-y-2">
-              {discountEligible && (
-                <div className="flex items-center justify-between rounded-lg bg-purple-500/10 border border-purple-500/20 px-3 py-2">
-                  <span className="text-xs font-semibold text-purple-400 uppercase tracking-wide">50% First Purchase Discount</span>
-                  <span className="text-xs font-bold text-purple-400">-{formatMoney(firstDiscount)}</span>
-                </div>
-              )}
               {discount > 0 && (
                 <div className="flex items-center justify-between rounded-lg bg-green-500/10 border border-green-500/20 px-3 py-2">
                   <span className="text-xs font-semibold text-green-400 uppercase tracking-wide">Buy 2 Get 1 Free</span>
@@ -148,8 +131,6 @@ export default function CheckoutPage() {
                   setError(result.error || "Payment capture failed.");
                   return;
                 }
-                // Mark discount as used so it can't be applied again
-                localStorage.setItem(DISCOUNT_KEY, "used");
                 clearCart();
                 router.push(`/success?orderId=${result.orderId}&token=${result.token}`);
               }}

@@ -4,7 +4,7 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 import type { Beat, CartItem, LicenseTierId } from "@/types/beat";
 import { getLicenseById } from "@/data/licenses";
 
-const VALID_CODES = ["BUY2GET1", "FIRSTBUY"];
+const VALID_CODES = ["BUY2GET1", "FIFTYBEAT"];
 
 interface CartContextValue {
   items: CartItem[];
@@ -110,22 +110,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const promoActive = !!promoCode || isAuto;
   const autoDiscount = isAuto ? getAutoDiscount(items) : 0;
   const discount = useMemo(() => {
-    if (promoCode === "FIRSTBUY") return autoDiscount + (subtotal - autoDiscount) * 0.5;
+    if (promoCode === "FIFTYBEAT") return autoDiscount + (subtotal - autoDiscount) * 0.5;
     if (promoCode === "BUY2GET1" || isAuto) return autoDiscount;
     return 0;
   }, [items, promoCode, isAuto, autoDiscount, subtotal]);
   const total = subtotal - discount;
   const currency = items[0]?.currency ?? "usd";
 
-  const promoDescription = promoCode === "FIRSTBUY" && isAuto
-    ? "Buy 2 Get 1 Free + 50% Off — both applied"
-    : promoCode === "FIRSTBUY"
-      ? "50% Off — FIRSTBUY applied"
-      : isAuto
-        ? "Buy 2 Get 1 Free — auto-applied"
-        : promoCode === "BUY2GET1"
-          ? "Buy 2 Get 1 Free — BUY2GET1 applied"
-          : null;
+  const promoDescription = promoCode === "FIFTYBEAT"
+    ? "50% Off — applied"
+    : isAuto
+      ? "Buy 2 Get 1 Free — auto-applied"
+      : promoCode === "BUY2GET1"
+        ? "Buy 2 Get 1 Free — BUY2GET1 applied"
+        : null;
 
   return (
     <CartContext.Provider
