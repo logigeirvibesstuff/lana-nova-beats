@@ -11,13 +11,14 @@ export default async function AdminPage() {
     redirect("/");
   }
 
-  const [orders, allBeats, itemStats] = await Promise.all([
+  const [orders, allBeats, topPlayed, itemStats] = await Promise.all([
     db.order.findMany({
       orderBy: { createdAt: "desc" },
       take: 100,
       include: { items: true },
     }),
     db.beat.findMany({ select: { id: true, title: true, slug: true, downloadUrls: true }, orderBy: { createdAt: "desc" } }),
+    db.beat.findMany({ select: { id: true, title: true, plays: true }, orderBy: { plays: "desc" }, take: 10 }),
     db.orderItem.groupBy({
       by: ["beatId", "licenseId"],
       _count: { id: true },
@@ -61,6 +62,34 @@ export default async function AdminPage() {
             <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
           </div>
         ))}
+      </div>
+
+      {/* Most Played */}
+      <div className="space-y-3">
+        <h2 className="text-base font-semibold text-gray-900">Most Played Beats</h2>
+        <div className="card-surface overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-black/10 text-left text-xs uppercase tracking-wider text-gray-500">
+                <th className="px-4 py-3">#</th>
+                <th className="px-4 py-3">Beat</th>
+                <th className="px-4 py-3">Plays</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-black/5">
+              {topPlayed.length === 0 && (
+                <tr><td colSpan={3} className="px-4 py-6 text-center text-gray-400">No plays yet.</td></tr>
+              )}
+              {topPlayed.map((beat, i) => (
+                <tr key={beat.id} className="hover:bg-gray-50">
+                  <td className="px-4 py-3 text-gray-400 text-xs">{i + 1}</td>
+                  <td className="px-4 py-3 font-medium text-gray-900">{beat.title}</td>
+                  <td className="px-4 py-3 font-semibold text-gray-900">{beat.plays}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Recent Orders */}

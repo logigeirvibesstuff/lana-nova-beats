@@ -22,6 +22,7 @@ model Beat {
   prices        Json?
   featured      Boolean  @default(false)
   downloadUrls  Json?
+  plays         Int      @default(0)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }

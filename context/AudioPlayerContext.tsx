@@ -53,6 +53,7 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
     setCurrentTime(0);
     setDuration(0);
     audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    fetch(`/api/beats/${beat.slug}/play`, { method: "POST" }).catch(() => {});
   };
 
   const togglePlay = (beat: Beat, newPlaylist?: Beat[]) => {
