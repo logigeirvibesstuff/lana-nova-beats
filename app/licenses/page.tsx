@@ -37,8 +37,10 @@ export default function LicensesPage() {
             or sample pack.
           </li>
           <li>
-            Unleashed Gems retains authorship and publishing splits may apply for
-            major releases.
+            Unleashed Gems retains authorship. Publishing royalty splits are negotiable for Exclusive Rights — contact us to agree on terms before purchase.
+          </li>
+          <li>
+            Exclusive Rights purchases require a signed license agreement before files are delivered. You will be contacted within 24 hours of payment to complete the process.
           </li>
         </ul>
         <p className="text-[0.7rem] text-gray-700">

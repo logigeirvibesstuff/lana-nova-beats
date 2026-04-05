@@ -28,8 +28,8 @@ export const licenseTiers: LicenseTier[] = [
   {
     id: "exclusive",
     name: "Exclusive Rights",
-    description: "One-time purchase — beat removed from catalog.",
-    usageSummary: "Full exclusive ownership, unlimited commercial rights.",
+    description: "One-time purchase — beat removed from catalog. Requires a signed contract before delivery. Publishing split negotiable — contact us.",
+    usageSummary: "Full exclusive ownership, unlimited commercial rights. Signed license agreement required.",
     price: 799,
     files: "MP3 + WAV + Trackout Stems"
   }
