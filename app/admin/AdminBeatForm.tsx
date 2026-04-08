@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 
 type Photo = { id: string; thumb: string; full: string; alt: string };
@@ -9,6 +9,27 @@ export function AdminBeatForm() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [bpm, setBpm] = useState("");
+  const [key, setKey] = useState("");
+  const [analyzing, setAnalyzing] = useState(false);
+  const bpmRef = useRef<HTMLInputElement>(null);
+  const keyRef = useRef<HTMLInputElement>(null);
+
+  async function handleAudioChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setAnalyzing(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/admin/analyze-audio", { method: "POST", body: fd });
+      const data = await res.json();
+      if (data.bpm) setBpm(String(Math.round(data.bpm)));
+      if (data.key) setKey(data.key);
+    } catch { /* ignore */ } finally {
+      setAnalyzing(false);
+    }
+  }
 
   // Image search state
   const [imageMode, setImageMode] = useState<"upload" | "search">("upload");
@@ -64,6 +85,8 @@ export function AdminBeatForm() {
       setSelectedPhoto(null);
       setSearchResults([]);
       setSearchQuery("");
+      setBpm("");
+      setKey("");
     } else {
       const data = await res.json();
       setError(data.error || "Something went wrong");
@@ -79,12 +102,12 @@ export function AdminBeatForm() {
           <input name="title" required className="input-field" placeholder="e.g. Midnight City" />
         </div>
         <div className="space-y-1">
-          <label className="text-xs font-medium text-gray-700">BPM *</label>
-          <input name="bpm" type="number" required className="input-field" placeholder="e.g. 90" />
+          <label className="text-xs font-medium text-gray-700">BPM * {analyzing && <span className="text-orange-500 font-normal">detecting...</span>}</label>
+          <input ref={bpmRef} name="bpm" type="number" required className="input-field" placeholder="e.g. 90" value={bpm} onChange={e => setBpm(e.target.value)} />
         </div>
         <div className="space-y-1">
-          <label className="text-xs font-medium text-gray-700">Key *</label>
-          <input name="key" required className="input-field" placeholder="e.g. A# minor" />
+          <label className="text-xs font-medium text-gray-700">Key * {analyzing && <span className="text-orange-500 font-normal">detecting...</span>}</label>
+          <input ref={keyRef} name="key" required className="input-field" placeholder="e.g. A# minor" value={key} onChange={e => setKey(e.target.value)} />
         </div>
         <div className="space-y-1">
           <label className="text-xs font-medium text-gray-700">Genre *</label>
@@ -185,7 +208,7 @@ export function AdminBeatForm() {
 
       <div className="space-y-1">
         <label className="text-xs font-medium text-gray-700">Audio Preview (MP3) *</label>
-        <input name="previewUrl" type="file" accept="audio/*" required className="input-field py-1.5" />
+        <input name="previewUrl" type="file" accept="audio/*" required className="input-field py-1.5" onChange={handleAudioChange} />
       </div>
 
       <div className="border-t border-black/10 pt-4 space-y-3">
