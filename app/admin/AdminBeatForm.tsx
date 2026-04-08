@@ -15,16 +15,69 @@ export function AdminBeatForm() {
   const bpmRef = useRef<HTMLInputElement>(null);
   const keyRef = useRef<HTMLInputElement>(null);
 
+  async function detectBpm(file: File): Promise<number | null> {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const audioCtx = new AudioContext();
+      const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+      const data = audioBuffer.getChannelData(0);
+      const sampleRate = audioBuffer.sampleRate;
+
+      // Energy-based beat detection
+      const windowSize = Math.floor(sampleRate * 0.01); // 10ms windows
+      const energies: number[] = [];
+      for (let i = 0; i < data.length - windowSize; i += windowSize) {
+        let energy = 0;
+        for (let j = 0; j < windowSize; j++) energy += data[i + j] ** 2;
+        energies.push(energy / windowSize);
+      }
+
+      // Find peaks
+      const avgEnergy = energies.reduce((a, b) => a + b, 0) / energies.length;
+      const threshold = avgEnergy * 1.5;
+      const peaks: number[] = [];
+      const minGap = Math.floor(0.3 / 0.01); // min 300ms between beats
+      let lastPeak = -minGap;
+      for (let i = 1; i < energies.length - 1; i++) {
+        if (energies[i] > threshold && energies[i] > energies[i - 1] && energies[i] > energies[i + 1] && i - lastPeak > minGap) {
+          peaks.push(i);
+          lastPeak = i;
+        }
+      }
+
+      if (peaks.length < 2) return null;
+      const intervals = peaks.slice(1).map((p, i) => (p - peaks[i]) * 0.01);
+      const avgInterval = intervals.reduce((a, b) => a + b, 0) / intervals.length;
+      let bpm = Math.round(60 / avgInterval);
+
+      // Normalize to typical BPM range
+      while (bpm < 60) bpm *= 2;
+      while (bpm > 200) bpm /= 2;
+
+      await audioCtx.close();
+      return bpm;
+    } catch { return null; }
+  }
+
   async function handleAudioChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
     setAnalyzing(true);
+    setBpm("");
+    setKey("");
     try {
+      // Try ID3 tags first via server
       const fd = new FormData();
       fd.append("file", file);
       const res = await fetch("/api/admin/analyze-audio", { method: "POST", body: fd });
       const data = await res.json();
-      if (data.bpm) setBpm(String(Math.round(data.bpm)));
+      if (data.bpm) {
+        setBpm(String(Math.round(data.bpm)));
+      } else {
+        // Fall back to client-side audio analysis
+        const detectedBpm = await detectBpm(file);
+        if (detectedBpm) setBpm(String(detectedBpm));
+      }
       if (data.key) setKey(data.key);
     } catch { /* ignore */ } finally {
       setAnalyzing(false);
