@@ -54,15 +54,15 @@ export function AdminBeatForm() {
         </div>
         <div className="space-y-1">
           <label className="text-xs font-medium text-gray-700">Premium Price ($)</label>
-          <input name="pricePremium" type="number" step="0.01" defaultValue="34.99" className="input-field" />
+          <input name="pricePremium" type="number" step="0.01" defaultValue="39.99" className="input-field" />
         </div>
         <div className="space-y-1">
           <label className="text-xs font-medium text-gray-700">Unlimited Price ($)</label>
-          <input name="priceUnlimited" type="number" step="0.01" defaultValue="59.99" className="input-field" />
+          <input name="priceUnlimited" type="number" step="0.01" defaultValue="199.99" className="input-field" />
         </div>
         <div className="space-y-1">
           <label className="text-xs font-medium text-gray-700">Exclusive Price ($)</label>
-          <input name="priceExclusive" type="number" step="0.01" defaultValue="199.99" className="input-field" />
+          <input name="priceExclusive" type="number" step="0.01" defaultValue="799.99" className="input-field" />
         </div>
         <div className="space-y-1">
           <label className="text-xs font-medium text-gray-700">Moods (comma separated)</label>
