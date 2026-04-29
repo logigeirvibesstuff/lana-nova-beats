@@ -47,12 +47,18 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
 
   const playBeat = (beat: Beat, vocals = false) => {
     const audio = ensureAudio();
-    audio.src = vocals && beat.vocalsUrl ? beat.vocalsUrl : beat.previewUrl;
+    const src = vocals && beat.vocalsUrl ? beat.vocalsUrl : beat.previewUrl;
+    audio.pause();
+    audio.src = src;
+    audio.currentTime = 0;
     setCurrentBeat(beat);
     setWithVocals(vocals);
     setCurrentTime(0);
     setDuration(0);
-    audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+    audio.play().then(() => setIsPlaying(true)).catch((err) => {
+      console.error("Audio play failed:", err, src);
+      setIsPlaying(false);
+    });
     fetch(`/api/beats/${beat.slug}/play`, { method: "POST" }).catch(() => {});
   };
 
