@@ -45,13 +45,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid items." }, { status: 400 });
   }
 
-  const capture = await capturePayPalOrder(orderId);
+  let capture: Awaited<ReturnType<typeof capturePayPalOrder>>;
+  try {
+    capture = await capturePayPalOrder(orderId);
+  } catch {
+    return NextResponse.json({ error: "Failed to contact PayPal." }, { status: 502 });
+  }
 
   if (capture.status !== "COMPLETED") {
     return NextResponse.json({ error: "Payment not completed." }, { status: 400 });
   }
 
-  const captureDetail = capture.purchase_units[0].payments.captures[0];
+  const captureDetail = capture.purchase_units?.[0]?.payments?.captures?.[0];
+  if (!captureDetail) {
+    return NextResponse.json({ error: "PayPal capture data missing." }, { status: 502 });
+  }
   const email = capture.payer?.email_address ?? "";
   const total = parseFloat(captureDetail.amount.value);
   const refCookie = (await cookies()).get("ref")?.value ?? null;
