@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import type { Beat } from "@/types/beat";
 
 interface AudioPlayerContextValue {
@@ -28,6 +28,9 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [withVocals, setWithVocals] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
 
   const currentBeatId = currentBeat?.id ?? null;
 
@@ -128,15 +131,17 @@ export function AudioPlayerProvider({ children }: { children: React.ReactNode })
 
   return (
     <AudioPlayerContext.Provider value={{ currentBeatId, currentBeat, isPlaying, currentTime, duration, withVocals, togglePlay, toggleVocals, seek, playNext, playPrev, stop }}>
-      <audio
-        ref={audioRef}
-        preload="auto"
-        onTimeUpdate={() => { const a = audioRef.current; if (a) setCurrentTime(a.currentTime); }}
-        onLoadedMetadata={() => { const a = audioRef.current; if (a && isFinite(a.duration)) setDuration(a.duration); }}
-        onDurationChange={() => { const a = audioRef.current; if (a && isFinite(a.duration)) setDuration(a.duration); }}
-        onEnded={() => { setIsPlaying(false); setCurrentTime(0); }}
-        style={{ display: "none" }}
-      />
+      {mounted && (
+        <audio
+          ref={audioRef}
+          preload="auto"
+          onTimeUpdate={() => { const a = audioRef.current; if (a) setCurrentTime(a.currentTime); }}
+          onLoadedMetadata={() => { const a = audioRef.current; if (a && isFinite(a.duration)) setDuration(a.duration); }}
+          onDurationChange={() => { const a = audioRef.current; if (a && isFinite(a.duration)) setDuration(a.duration); }}
+          onEnded={() => { setIsPlaying(false); setCurrentTime(0); }}
+          style={{ display: "none" }}
+        />
+      )}
       {children}
     </AudioPlayerContext.Provider>
   );
