@@ -14,7 +14,6 @@ export default async function AdminPage() {
   const [orders, allBeats, topPlayed, itemStats] = await Promise.all([
     db.order.findMany({
       orderBy: { createdAt: "desc" },
-      take: 100,
       include: { items: true },
     }),
     db.beat.findMany({ select: { id: true, title: true, slug: true, downloadUrls: true }, orderBy: { createdAt: "desc" } }),
@@ -29,15 +28,15 @@ export default async function AdminPage() {
   ]);
 
   const paidOrders = orders.filter((o) => o.status === "PAID" || o.status === "FULFILLED");
-  const totalRevenue = 7324.82;
-  const totalOrders = 287;
+  const totalRevenue = paidOrders.reduce((sum, o) => sum + Number(o.total), 0);
+  const totalOrders = paidOrders.length;
   const pendingOrders = orders.filter((o) => o.status === "PENDING").length;
   const thisMonth = paidOrders.filter((o) => {
     const d = new Date(o.createdAt);
     const now = new Date();
     return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
   });
-  const monthRevenue = 3593.22;
+  const monthRevenue = thisMonth.reduce((sum, o) => sum + Number(o.total), 0);
 
   const fmt = (n: number) =>
     new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n);
